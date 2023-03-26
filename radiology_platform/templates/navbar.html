@@ -1,9 +1,12 @@
+{% load static %}
 <div class="hero_area">
   <!-- header section strats -->
   <header class="header_section">
     <div class="container">
       <nav class="navbar navbar-expand-lg custom_nav-container">
         <a class="navbar-brand" href="{% url 'home' %}">
+          <img src="{% static 'images/ai.png'%} " alt="" />
+
           <span> Radio.AI </span>
         </a>
 
@@ -40,11 +43,19 @@
             <li class="nav-item">
               <a class="nav-link" href="{% url 'aboutus' %}">About Us</a>
             </li>
+            <li class="nav-item">
+              <a class="btn custom-btn" href="{% url 'aboutus' %}">Sign Up</a>
+            </li>
+            <li class="nav-item">
+              <a class="btn custom-btn" href="{% url 'aboutus' %}">Sign In</a>
+            </li>
+            {% comment %}
             <form class="form-inline">
               <button class="btn my-2 my-sm-0 nav_search-btn" type="submit">
                 <i class="fa fa-search" aria-hidden="true"></i>
               </button>
             </form>
+            {% endcomment %}
           </ul>
         </div>
       </nav>

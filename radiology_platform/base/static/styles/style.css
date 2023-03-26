@@ -145,14 +145,15 @@ a:focus {
 .header_section .container-fluid {
   padding-right: 25px;
   padding-left: 25px;
-}
 
+}
 .navbar-brand span {
   font-weight: bold;
   font-size: 24px;
   color: #ffffff;
   text-transform: uppercase;
 }
+
 
 .custom_nav-container {
   padding: 0;
@@ -161,6 +162,7 @@ a:focus {
 .custom_nav-container .navbar-nav {
   margin-left: auto;
 }
+
 
 .custom_nav-container .navbar-nav .nav-item .nav-link {
   padding: 5px 20px;
@@ -222,6 +224,7 @@ a:focus {
   transition: all 0.3s;
 }
 
+
 .custom_nav-container .navbar-toggler span::after {
   top: 10px;
 }
@@ -240,6 +243,16 @@ a:focus {
   -webkit-transform: rotate(90deg);
           transform: rotate(90deg);
   top: 0;
+}
+.custom-btn {
+  margin-left: 10px;
+  background-color: white;
+  border-color: #ffffff;
+  color: #1fab89;
+}
+.custom-btn:hover {
+  background-color: #62d2a2;
+    color: white;
 }
 
 /*end header section*/
