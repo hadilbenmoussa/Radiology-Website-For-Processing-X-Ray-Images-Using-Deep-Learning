@@ -77,3 +77,21 @@
     max-width: 1170px;
   }
 }
+@media screen and (max-width: 768px) {
+  .title {
+    margin-left: 0px;
+  }
+}
+
+
+@media screen and (max-width: 768px) {
+  .category-button {
+    width: auto;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .category-button {
+    width: auto;
+  }
+}

@@ -7,8 +7,8 @@ def requestappointment(request):
     return render(request, 'base/requestappointment.html')
 def patientcare(request):
     return render(request, 'base/patientcare.html')
-def newsletter(request):
-    return render(request, 'base/newsletter.html')
+def blog(request):
+    return render(request, 'base/blog.html')
 def aboutus(request):
     return render(request, 'base/aboutus.html')
 
