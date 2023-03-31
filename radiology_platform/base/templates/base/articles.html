@@ -1,0 +1,48 @@
+{% extends 'main.html' %}{% block content %}
+<section class="blog_section layout_padding">
+  <div class="container">
+    <div class="heading_container heading_left">
+
+    <div class="col-md-10 mx-auto px-0 nav-gap">
+        <a href="{% url 'blog' %}" class="breadcrumbs"> Blog&nbsp;&nbsp;&nbsp;&nbsp;></a>   &nbsp;&nbsp;&nbsp;&nbsp;Articles
+    </div>
+      <div class="nav-gap col-md-10 mx-auto px-0">
+      <h2 >All Articles</h2>
+      <hr /></div>
+ 
+    </div>
+
+<div class="col-md-10 mx-auto px-0 heading_container heading_center">
+   <div class="row">
+        {% for post in all_articles %}
+        <div class="col-lg-4 mb-4">
+          <div class="card">
+            <img
+              src="https://images.unsplash.com/photo-1477862096227-3a1bb3b08330?ixlib=rb-1.2.1&auto=format&fit=crop&w=700&q=60"
+              alt=""
+              class="card-img-top"/>
+            <div class="card-body">
+              <h5 class="card-title">{{post.title}}</h5>
+              <p class="card-text">{{ post.get_short_description }}</p>
+              <a href="{% url 'blog_details' post.pk %}" class="btn custom-btn2"
+                >Read More</a>
+              <a href="" class="btn btn-outline-danger btn-sm"><i class="fa fa-heart"></i ></a>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+    <div class="pagination">
+    {% if page_obj.has_previous %}
+    <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+    {% endif %}
+    <span class="current-page">{{ page_obj.number }}</span>
+    {% if page_obj.has_next %}
+    <a href="?page={{ page_obj.next_page_number }}">next</a>
+    {% endif %}
+    </div>
+  </div>
+</div>
+</section>
+{% endblock content %}

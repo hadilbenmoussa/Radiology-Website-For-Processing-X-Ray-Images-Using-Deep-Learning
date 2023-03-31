@@ -2,95 +2,144 @@
 <section class="blog_section layout_padding">
   <div class="container">
     <div class="heading_container heading_left">
-      <h2 class="col-md-10 mx-auto px-0 title">Radio.AI Blog</h2>
-      <p class="col-md-10 mx-auto px-0">
-        Looking into the future of healthcare
-      </p>
-    </div>
-<div class="category-buttons">
-    <button class="category-button">Cafffffffffffffftego,,jjjkjkry 1</button>
-    <button class="category-button">Category 2</button>
-    <button class="category-button">Category 3</button>
-    <button class="category-button">Category 4</button>
-     <button class="subscribe-button"> Join Newsletter >> </button>
-  </div>
+      <div class="title-gap col-md-10 mx-auto px-0">
+        <h2>Radio.AI Blog</h2>
+        <span> Looking into the future of healthcare </span>
 
-  <section id="gallery">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-4 mb-4">
-          <div class="card">
-            <img
-              src="https://images.unsplash.com/photo-1477862096227-3a1bb3b08330?ixlib=rb-1.2.1&auto=format&fit=crop&w=700&q=60"
-              alt=""
-              class="card-img-top"
-            />
-            <div class="card-body">
-              <h5 class="card-title">Sunset</h5>
-              <p class="card-text">
-                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ut eum
-                similique repellat a laborum, rerum voluptates ipsam eos quo
-                tempore iusto dolore modi dolorum in pariatur. Incidunt
-                repellendus praesentium quae!
-              </p>
-              <a href="" class="btn custom-btn2">Read More</a>
-              <a href="" class="btn btn-outline-danger btn-sm"
-                ><i class="fa fa-heart"></i
-              ></a>
+        <hr />
+        <div class="container">
+          <div class="row category-buttons">
+            <div class="col-sm-9">
+              <a href="{% url 'articles' %}" class="btn category-button"
+                >All Articles</a
+              >
+              <a href="" class="btn category-button">Technology</a>
+              <a href="" class="btn category-button">Radiology</a>
+              <a href="" class="btn category-button">Medicine</a>
             </div>
-          </div>
-        </div>
-        <div class="col-lg-4 mb-4">
-          <div class="card">
-            <img
-              src="https://images.unsplash.com/photo-1516214104703-d870798883c5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=700&q=60"
-              alt=""
-              class="card-img-top"
-            />
-            <div class="card-body">
-              <h5 class="card-title">Sunset</h5>
-              <p class="card-text">
-                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ut eum
-                similique repellat a laborum, rerum voluptates ipsam eos quo
-                tempore iusto dolore modi dolorum in pariatur. Incidunt
-                repellendus praesentium quae!
-              </p>
-              <a href="" class="btn custom-btn2">Read More</a>
-              <a href="" class="btn btn-outline-danger btn-sm"
-                ><i class="fa fa-heart"></i
-              ></a>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-4 mb-4">
-          <div class="card">
-            <img
-              src="https://images.unsplash.com/photo-1477862096227-3a1bb3b08330?ixlib=rb-1.2.1&auto=format&fit=crop&w=700&q=60"
-              alt=""
-              class="card-img-top"
-            />
-            <div class="card-body">
-              <h5 class="card-title">Sunset</h5>
-              <p class="card-text">
-                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ut eum
-                similique repellat a laborum, rerum voluptates ipsam eos quo
-                tempore iusto dolore modi dolorum in pariatur. Incidunt
-                repellendus praesentium quae!
-              </p>
-              <a href="" class="btn custom-btn2">Read More</a>
-              <a href="" class="btn btn-outline-danger btn-sm"
-                ><i class="fa fa-heart"></i
-              ></a>
+            <div class="col-sm-3">
+              <a href="" class="btn category-button">Join Newsletter</a>
             </div>
           </div>
         </div>
       </div>
+      <hr />
+      <h3 class="col-md-10 mx-auto px-0 title">Featured Articles</h3>
     </div>
-  </section> 
 
-<a href="" class="btn custom-btn2">View All</a>
-</div>
+    <div class="col-md-10 mx-auto px-0 heading_container heading_center">
+      <div class="row">
+        {% for post in blog_posts %}
+        <div class="col-lg-4 mb-4">
+          <div class="card">
+            <img
+              src="https://images.unsplash.com/photo-1477862096227-3a1bb3b08330?ixlib=rb-1.2.1&auto=format&fit=crop&w=700&q=60"
+              alt=""
+              class="card-img-top"
+            />
+            <div class="card-body">
+              <h5 class="card-title">{{post.title}}</h5>
+              <p class="card-text">{{ post.get_short_description }}</p>
+              <a href="{% url 'blog_details' post.pk %}" class="btn custom-btn2"
+                >Read More</a
+              >
+              <a href="" class="btn btn-outline-danger btn-sm"
+                ><i class="fa fa-heart"></i
+              ></a>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    <div class="title-gap col-md-10 mx-auto px-0">
+      <h2>Our Authors</h2>
+      <p>
+        Incilint sapiente illo quo praesentium officiis laudantium nostrum, ad
+        adipisci cupiditate sit, quisquam aliquid. Officiis laudantium fuga ad
+        voluptas aspernatur error fugiat quos facilis saepe quas fugit, beatae
+        id quisquam.
+      </p>
+    </div>
+    <div class="row">
+      <div class="col-sm-6 col-lg-4 mx-auto">
+        <div class="box">
+          <div class="img-box">
+            <img src="images/d1.jpg" alt="" />
+          </div>
+          <div class="detail-box">
+            <div class="social_box">
+              <a href="">
+                <i class="fa fa-facebook" aria-hidden="true"></i>
+              </a>
+              <a href="">
+                <i class="fa fa-twitter" aria-hidden="true"></i>
+              </a>
+              <a href="">
+                <i class="fa fa-youtube" aria-hidden="true"></i>
+              </a>
+              <a href="">
+                <i class="fa fa-linkedin" aria-hidden="true"></i>
+              </a>
+            </div>
+            <h5>Elina Josh</h5>
+            <h6 class="">Doctor</h6>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6 col-lg-4 mx-auto">
+        <div class="box">
+          <div class="img-box">
+            <img src="images/d2.jpg" alt="" />
+          </div>
+          <div class="detail-box">
+            <div class="social_box">
+              <a href="">
+                <i class="fa fa-facebook" aria-hidden="true"></i>
+              </a>
+              <a href="">
+                <i class="fa fa-twitter" aria-hidden="true"></i>
+              </a>
+              <a href="">
+                <i class="fa fa-youtube" aria-hidden="true"></i>
+              </a>
+              <a href="">
+                <i class="fa fa-linkedin" aria-hidden="true"></i>
+              </a>
+            </div>
+            <h5>Adam View</h5>
+            <h6 class="">Doctor</h6>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6 col-lg-4 mx-auto">
+        <div class="box">
+          <div class="img-box">
+            <img src="images/d3.jpg" alt="" />
+          </div>
+          <div class="detail-box">
+            <div class="social_box">
+              <a href="">
+                <i class="fa fa-facebook" aria-hidden="true"></i>
+              </a>
+              <a href="">
+                <i class="fa fa-twitter" aria-hidden="true"></i>
+              </a>
+              <a href="">
+                <i class="fa fa-youtube" aria-hidden="true"></i>
+              </a>
+              <a href="">
+                <i class="fa fa-linkedin" aria-hidden="true"></i>
+              </a>
+            </div>
+            <h5>Mia Mike</h5>
+            <h6 class="">Doctor</h6>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
 
-  {% endblock content %}
-</section>
+{% endblock content %}

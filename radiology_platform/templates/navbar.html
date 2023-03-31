@@ -57,9 +57,31 @@
             </form>
             {% endcomment %}
           </ul>
+
+          <script>
+            window.addEventListener("scroll", function () {
+              var navbar = document.querySelector(".custom_nav-container");
+              if (window.scrollY > 100) {
+                navbar.classList.add("scrolled");
+              } else {
+                navbar.classList.remove("scrolled");
+              }
+            });
+          </script>
+
+          <style>
+            .custom_nav-container {
+              background-color: #178066;
+              transition: background-color 0.5s ease;
+            }
+            .custom_nav-container.scrolled {
+              background-color: #178066;
+            }
+          </style>
         </div>
       </nav>
     </div>
+    <script type="text/javascript" src="{% static 'js/custom.js' %}"></script>
   </header>
   <!-- end header section -->
 </div>

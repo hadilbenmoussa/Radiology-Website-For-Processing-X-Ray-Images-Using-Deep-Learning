@@ -14,11 +14,7 @@
     <meta name="keywords" content="" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <link
-      rel="shortcut icon"
-      href="{% static 'images/ai.png' %}"
-      type=""
-    />
+    <link rel="shortcut icon" href="{% static 'images/ai.png' %}" type="" />
 
     <title>Radio.AI</title>
     <!-- font awesome style -->
@@ -49,11 +45,8 @@
     <!-- responsive style -->
     <link href="{% static 'styles/responsive.css' %}" rel="stylesheet" />
   </head>
-<body class="sub_page">
-
-      {% include 'navbar.html' %}
-    </div>
-    {% block content %} {% endblock %}
+  <body class="sub_page">
+    {% include 'navbar.html' %} {% block content %} {% endblock %}
     <!-- jQery -->
     <script
       type="text/javascript"

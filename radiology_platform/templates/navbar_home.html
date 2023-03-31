@@ -63,7 +63,18 @@
         </div>
       </nav>
     </div>
+    <script>
+      const navbar = document.querySelector(".custom_nav-container");
+      window.onscroll = () => {
+        if (window.scrollY > 0) {
+          navbar.classList.add("nav-active");
+        } else {
+          navbar.classList.remove("nav-active");
+        }
+      };
+    </script>
   </header>
+
   <section class="slider_section">
     <div id="customCarousel1" class="carousel slide" data-ride="carousel">
       <div class="carousel-inner">
