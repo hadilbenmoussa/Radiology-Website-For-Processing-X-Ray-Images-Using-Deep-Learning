@@ -3,7 +3,7 @@
 body {
   font-family: "Open Sans", sans-serif;
   color: #112950;
-  background-color: #fefefe;
+  background-color: #F3F4F6;
   overflow-x: hidden;
 }
 
@@ -148,7 +148,7 @@ a:focus {
   
 }
 
-.header_section .container {
+.header_section .container{
   padding-right: 25px;
     padding-left: 25px;
     width: 100%;
@@ -488,6 +488,9 @@ transition: 0.3s ease-in-out;
   background-color: transparent;
   color: #62d2a2;
 }
+.about_section {
+  background: #F3F4F6;
+}
 
 .about_section .row {
   -webkit-box-align: center;
@@ -636,6 +639,14 @@ transition: 0.3s ease-in-out;
 .doctor_section .btn-box a:hover {
   background-color: transparent;
   color: #1fab89;
+}
+.backgroundcolor{
+
+    background: #178066;
+}
+.backgroundcolor h2 ,span {
+  color: #ffffff;
+  
 }
 .department_section {
   position: relative;
@@ -919,6 +930,9 @@ margin-bottom:40px;
 }
 .contact_section {
   position: relative;
+ 
+   background: #F3F4F6;
+
 }
 
 .contact_section .heading_container {
@@ -1160,14 +1174,14 @@ margin-bottom:40px;
 }
 
 .card:hover {
-  transform: scale(1.02);
+  transform: scale(1.01);
 }
 
 .card:hover img {
   transform: scale(1.02);
 }
 .card:hover a {
-  transform: scale(1.05);
+  transform: scale(1.03);
 }
 
 .card::before {

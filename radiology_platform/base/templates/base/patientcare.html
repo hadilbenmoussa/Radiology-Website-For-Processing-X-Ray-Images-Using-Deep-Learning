@@ -1,3 +1,170 @@
-{% extends 'main.html' %} {% block content %}
-<h1>patientcare</h1>
+{% extends 'main.html' %} {% load static %} {% block content %}
+
+<section class="department_section backgroundcolor layout_padding">
+  <div class="department_container">
+    <div class="container">
+      <div class="heading_container heading_center">
+        <h2>Our Departments</h2>
+        <span>
+          Asperiores sunt consectetur impedit nulla molestiae delectus repellat
+          laborum dolores doloremque accusantium
+        </span>
+      </div>
+      <div class="row">
+        <div class="col-md-3">
+          <div class="box">
+            <div class="img-box">
+              <img src="{% static 'images/cardiology.png' %}" alt="" />
+            </div>
+            <div class="detail-box">
+              <h5>Cardiology</h5>
+              <p>
+                We diagnose and treat heart conditions using imaging techniques
+                such as echocardiograms, angiograms, and CT scans.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="box">
+            <div class="img-box">
+              <img src="{% static 'images/neurology.png' %}" alt="" />
+            </div>
+            <div class="detail-box">
+              <h5>Neurology</h5>
+              <p>
+                We diagnose and treat conditions affecting the brain and nervous
+                system, such as stroke, brain tumors, and multiple sclerosis
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="box">
+            <div class="img-box">
+              <img src="{% static 'images/orthopedics.png' %}" alt="" />
+            </div>
+            <div class="detail-box">
+              <h5>Orthopedics</h5>
+              <p>
+                We diagnose and treat conditions affecting the bones, joints,
+                and muscles, using imaging techniques such as X-rays, CT scans,
+                and MRI scans.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="box">
+            <div class="img-box">
+              <img src="{% static 'images/oncology.png' %}" alt="" />
+            </div>
+            <div class="detail-box">
+              <h5>Oncology</h5>
+              <p>
+                We diagnose and treat cancer using various imaging techniques,
+                including PET scans, CT scans, and MRI scans.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- end department section -->
+<section class="doctor_section layout_padding">
+  <div class="container">
+    <div class="heading_container heading_center">
+      <h2>Our Radiologists</h2>
+      <p class="col-md-10 mx-auto px-0">
+        Our radiology center is staffed with highly trained and experienced
+        radiologists who specialize in providing exceptional diagnostic imaging
+        services.
+      </p>
+    </div>
+    <div class="row">
+      <div class="col-sm-6 col-lg-4 mx-auto">
+        <div class="box">
+          <div class="img-box">
+            <img src="{% static 'images/d1.jpg' %}" alt="" />
+          </div>
+          <div class="detail-box">
+            <div class="social_box">
+              <a href="">
+                <i class="fa fa-facebook" aria-hidden="true"></i>
+              </a>
+              <a href="">
+                <i class="fa fa-twitter" aria-hidden="true"></i>
+              </a>
+              <a href="">
+                <i class="fa fa-youtube" aria-hidden="true"></i>
+              </a>
+              <a href="">
+                <i class="fa fa-linkedin" aria-hidden="true"></i>
+              </a>
+            </div>
+            <h5>Elina Josh</h5>
+            <h6 class="">Radiation oncologists</h6>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6 col-lg-4 mx-auto">
+        <div class="box">
+          <div class="img-box">
+            <img src="{% static 'images/d2.jpg' %}" alt="" />
+          </div>
+          <div class="detail-box">
+            <div class="social_box">
+              <a href="">
+                <i class="fa fa-facebook" aria-hidden="true"></i>
+              </a>
+              <a href="">
+                <i class="fa fa-twitter" aria-hidden="true"></i>
+              </a>
+              <a href="">
+                <i class="fa fa-youtube" aria-hidden="true"></i>
+              </a>
+              <a href="">
+                <i class="fa fa-linkedin" aria-hidden="true"></i>
+              </a>
+            </div>
+            <h5>Adam View</h5>
+            <h6 class="">Interventional radiologist</h6>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6 col-lg-4 mx-auto">
+        <div class="box">
+          <div class="img-box">
+            <img src="{% static 'images/d3.jpg' %}" alt="" />
+          </div>
+          <div class="detail-box">
+            <div class="social_box">
+              <a href="">
+                <i class="fa fa-facebook" aria-hidden="true"></i>
+              </a>
+              <a href="">
+                <i class="fa fa-twitter" aria-hidden="true"></i>
+              </a>
+              <a href="">
+                <i class="fa fa-youtube" aria-hidden="true"></i>
+              </a>
+              <a href="">
+                <i class="fa fa-linkedin" aria-hidden="true"></i>
+              </a>
+            </div>
+            <h5>Mia Mike</h5>
+            <h6 class="">Diagnostic Radiologist</h6>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="btn-box">
+      <a href=""> View All </a>
+    </div>
+  </div>
+</section>
+
 {% endblock content %}
