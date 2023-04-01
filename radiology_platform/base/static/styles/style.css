@@ -849,6 +849,74 @@ margin-bottom:40px;
   pointer-events: none;
   cursor: default;
 }
+
+.blog_section form .form_container {
+  border: none;
+  background-color: #fefefe;
+  width: 50%;
+  height: 45px;
+  color: #000000;
+  outline: none;
+  border-radius: 5px;
+  padding: 0 15px;
+}
+
+.blog_section form input::-webkit-input-placeholder {
+  color: #777;
+}
+
+.blog_section form input:-ms-input-placeholder {
+  color: #777;
+}
+
+.blog_section form input::-ms-input-placeholder {
+  color: #777;
+}
+
+.blog_section form input::placeholder {
+  color: #777;
+}
+
+.blog_section form button {
+  width: 50%;
+  text-align: center;
+  display: inline-block;
+  padding: 10px 10px;
+  background-color: #62d2a2;
+  color: #ffffff;
+  border-radius: 5px;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+  border: 1px solid #62d2a2;
+  margin-top: 15px;
+}
+
+.blog_section form button:hover {
+  background-color: transparent;
+  color: #62d2a2;
+}
+.newsletter-caption {
+  
+  padding: 10px 10px;
+  margin-left: 20%;
+  margin-right: 20%;
+  font-size: 0.8rem;
+  font-weight: bold;
+  font-family:"Merriweather",
+    serif;
+    
+}
+.descritption-container{
+  padding:10px 10px;
+  margin-left:20%;
+  margin-right:20%
+}
+.form-container {
+  text-align: left;
+  padding: 5px 5px;
+  margin-left: 24%;
+  margin-right: 24%
+}
 .contact_section {
   position: relative;
 }

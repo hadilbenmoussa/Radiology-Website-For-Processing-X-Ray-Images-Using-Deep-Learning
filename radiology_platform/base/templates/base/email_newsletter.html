@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Latest Articles from My Website</title>
+  </head>
+  <body>
+    <h1>Latest Articles from My Website</h1>
+    {% for post in latest_articles %}
+    <h2>{{ post.title }}</h2>
+    <p>{{ post.get_short_description }}</p>
+    <p><a href="{{ post.get_absolute_url }}">Read more</a></p>
+    {% endfor %}
+  </body>
+</html>

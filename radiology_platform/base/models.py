@@ -4,6 +4,7 @@ from bs4 import BeautifulSoup
 
 # Create your models here.
 
+
 class Post(models.Model):
     title=models.CharField(max_length=255)
     # models.CASCADE if we delete a user all the instances of posts created with him will be deleted 
@@ -26,3 +27,18 @@ class Post(models.Model):
     def save(self, *args, **kwargs):
         self.title = self.title.upper()
         super(Post, self).save(*args, **kwargs)
+class Subscribers(models.Model):
+    name=models.CharField(max_length=50, null=True)
+    email=models.EmailField(null=True)
+    date= models.DateTimeField(auto_now_add=True)   
+    def __str__(self):
+        return self.email
+    def __str__(self):
+        return self.name
+class MailMessage(models.Model) :
+    title = models.CharField(max_length=100,null=True)  
+    message=models.TextField(null=True)
+    def __str__(self):
+        return self.title
+    def __str__(self):
+        return self.message

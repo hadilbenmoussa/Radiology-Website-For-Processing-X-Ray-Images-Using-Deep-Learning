@@ -1,0 +1,39 @@
+{% extends 'main.html' %} {% load crispy_forms_tags %} {%block content %}
+<section class="blog_section layout_padding">
+  <div class="heading_container heading_center">
+    <div class="container">
+      <div class="col-md-10 mx-auto px-0 nav-gap">
+        <div class="newsletter-caption">
+          <p>STAY UP TO DATE WITH RADIO.AI HEALTHCARE INSIGHTS</p>
+        </div>
+        <br />
+        <h2>Sign Up For Our Newsletter</h2>
+        <div class="descritption-container">
+          <p>
+            Subscribe to our monthly newsletter and get the latest insights on
+            the digital health industry, as well as company and product updates.
+            We also share our case studies, webinars, reports, and articles
+            along with an event calendar so you can easily meet with us!
+          </p>
+        </div>
+        <br />
+        {% for message in messages %}
+        <div class="alert alert-success form-container">{{ message }}</div>
+        {% endfor %}
+        <script>
+          setTimeout(function () {
+            let message = document.querySelector(".alert");
+            if (message) {
+              message.style.display = "none";
+            }
+          }, 5000);
+        </script>
+        <form method="POST">
+          <div class="form-container">{% csrf_token %} {{ form|crispy }}</div>
+          <button type="submit">Subscribe</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

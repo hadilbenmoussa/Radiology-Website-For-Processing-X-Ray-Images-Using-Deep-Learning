@@ -1,6 +1,10 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.views.generic import ListView,DetailView
-from .models import Post
+from django.contrib import messages
+from .models import Post,Subscribers
+from.forms import SubscribersForm
+
+
 
 # Create your views here.
 def home(request):
@@ -34,6 +38,33 @@ class blogDetailsView(DetailView):
     template_name='base/blog_details.html'    
 def blog(request):
     return render(request, 'base/blog.html')
+
+def newsletterView(request):
+    if request.method=='POST':
+        form = SubscribersForm(request.POST)
+        if form.is_valid():
+            email = form.cleaned_data['email']
+            existing_subscriber = get_object_or_none(Subscribers, email=email)
+            if existing_subscriber:
+                messages.success(request,'Already Subscribed')
+            else:
+                messages.success(request,'Subscription Successful')
+                form.save()
+                return redirect('/newsletter')    
+                
+      
+    else :
+        form=SubscribersForm()
+   
+    context = {
+        'form' : form,
+    }
+    return render(request, 'base/newsletter.html',context)
 def aboutus(request):
     return render(request, 'base/aboutus.html')
 
+def get_object_or_none(model, **kwargs):
+    try:
+        return model.objects.get(**kwargs)
+    except model.DoesNotExist:
+        return None
