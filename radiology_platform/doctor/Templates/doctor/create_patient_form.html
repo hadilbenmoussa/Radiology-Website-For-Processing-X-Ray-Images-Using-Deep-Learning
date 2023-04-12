@@ -1,0 +1,118 @@
+{% load crispy_forms_tags %}
+<style>
+  /* Customize form styles here */
+  .container {
+    width: 60%;
+    margin: 0 auto;
+  }
+
+  .form-group label {
+    font-weight: bold;
+    color: #112950;
+  }
+
+  .form-group input[type="text"],
+  .form-group input[type="email"],
+  .form-group input[type="number"],
+  .form-group textarea,
+  .form-group select {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    margin-bottom: 10px;
+  }
+
+  .form-group select {
+    height: 40px;
+  }
+
+  .form-group .help-block {
+    margin-top: 5px;
+    color: #a94442;
+  }
+
+  .form-group.has-error input[type="text"],
+  .form-group.has-error input[type="email"],
+  .form-group.has-error input[type="number"],
+  .form-group.has-error textarea,
+  .form-group.has-error select {
+    border-color: #a94442;
+  }
+
+  .submit {
+    height: 36px;
+    padding: 0 16px;
+    border-radius: 36px;
+    background: #1fab89;
+    color: #eee;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    grid-gap: 10px;
+    font-weight: 500;
+  }
+  .cancel {
+    height: 36px;
+    padding: 0 16px;
+    border-radius: 36px;
+    background: #eee;
+    color: #1fab89;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    grid-gap: 10px;
+    font-weight: 500;
+  }
+  input.submit,
+  input.cancel {
+    display: inline-block;
+    margin-right: 10px;
+  }
+  /* Responsive styles */
+  @media screen and (max-width: 768px) {
+    .container {
+      width: 40%;
+      margin: 0 auto;
+    }
+    .form-group label {
+      font-size: 14px;
+    }
+    .form-group input[type="text"],
+    .form-group input[type="email"],
+    .form-group input[type="number"],
+    .form-group textarea,
+    .form-group select {
+      font-size: 14px;
+    }
+  }
+  @media screen and (max-width: 480px) {
+    .container {
+      width: 35%;
+      margin: 0 auto;
+    }
+    .form-group label {
+      font-size: 12px;
+    }
+    .form-group input[type="text"],
+    .form-group input[type="email"],
+    .form-group input[type="number"],
+    .form-group textarea,
+    .form-group select {
+      font-size: 12px;
+    }
+  }
+</style>
+
+<form class="form-group" method="post">
+  {% csrf_token %} {{ form.as_p }}
+  <input type="submit" class="submit" value="Submit" />
+  <input
+    type="button"
+    class="cancel"
+    value="Cancel"
+    onclick="window.location.href='{% url 'patients' %}'"
+  />
+</form>

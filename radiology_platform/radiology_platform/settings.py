@@ -42,6 +42,9 @@ INSTALLED_APPS = [
     'crispy_forms',
     'crispy_bootstrap5',
     'django_apscheduler',
+    'radiologist.apps.RadiologistConfig',
+    'patient.apps.PatientConfig',
+    'doctor.apps.DoctorConfig',
 
 ]
 
@@ -53,6 +56,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    
 ]
 
 ROOT_URLCONF = 'radiology_platform.urls'
