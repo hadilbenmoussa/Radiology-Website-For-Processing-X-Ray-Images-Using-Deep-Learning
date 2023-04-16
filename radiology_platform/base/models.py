@@ -8,7 +8,7 @@ from bs4 import BeautifulSoup
 class Post(models.Model):
     title=models.CharField(max_length=255)
     # models.CASCADE if we delete a user all the instances of posts created with him will be deleted 
-    author=models.ForeignKey(User,on_delete=models.CASCADE)
+   
     body=models.TextField()
         # when the model is updated
     updated = models.DateTimeField(auto_now=True)

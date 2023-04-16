@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'radiologist.apps.RadiologistConfig',
     'patient.apps.PatientConfig',
     'doctor.apps.DoctorConfig',
+    'account.apps.AccountConfig',
 
 ]
 
@@ -131,6 +132,7 @@ STATIC_URL = 'static/'
 STATICFILES = [
     BASE_DIR / 'static'
 ]
+AUTH_USER_MODEL= 'account.User'
 
 
 # Default primary key field type

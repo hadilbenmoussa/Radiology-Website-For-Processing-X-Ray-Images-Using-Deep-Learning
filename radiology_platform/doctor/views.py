@@ -1,5 +1,8 @@
 from django.shortcuts import render,redirect
+from django.contrib import messages
 from .forms import PatientForm
+from .models import Patient
+from django.db.models import Q
 
 
 # Create your views here.
@@ -16,29 +19,35 @@ def profilView(request):
 def notificationsView(request):
     return render (request,'doctor/notifications.html')
 
-
-
 def create_patient(request):
-    if not request.session.get('access_granted'):
-        # Redirect the user to a page indicating that they need to click the "Add Patient" button first
-        return redirect('doctor/access_denied')
-    else:
-        if request.method == 'POST':
-            form = PatientForm(request.POST)
-            print('form recived')
-            if form.is_valid():
-                print('form recived')
+    if request.method == 'POST':
+        form = PatientForm(request.POST)
+        print('form recived')
+        if form.is_valid():
+            email = form.cleaned_data['email']
+            cin_number = form.cleaned_data['cin_number']
+            existing_patient = get_object_or_none(Patient, email=email,cin_number=cin_number)
+            if existing_patient:
+                messages.success(request,'Already registered')
+            else:
+                messages.success(request,'registration successful')
                 form.save()
-                return redirect('patients')
-        else:
-            form = PatientForm()
-            return render(request, 'doctor/create_patient_form.html', {'form': form})
+
+            return redirect('patients')
+    else:
+        form = PatientForm()
+    return render(request, 'doctor/create_patient_form.html', {'form': form})
   
-def add_patient(request):
-    # Set a session variable to indicate that the user has clicked the button
-    request.session['access_granted'] = True
-    # Redirect the user to the create_patient URL
-    return redirect('create_patient')
-def access_denied(request):
-    return render(request, 'doctor/access_denied.html')    
-     
+def get_object_or_none(model, email=None, cin_number=None, **kwargs):
+    filter_condition = Q()
+    if email is not None:
+        filter_condition |= Q(email=email)
+    if cin_number is not None:
+        filter_condition |= Q(cin_number=cin_number)
+    if kwargs:
+        filter_condition &= Q(**kwargs)
+
+    try:
+        return model.objects.get(filter_condition)
+    except model.DoesNotExist:
+        return None    

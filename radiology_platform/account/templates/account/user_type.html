@@ -1,0 +1,23 @@
+<form method="post">
+  {% csrf_token %}
+<div class="d-flex mb-5 align-items-center">
+                    <label class="control control--checkbox mb-0"><span class="caption">Admin</span>
+                        {{ form.is_admin }}
+                      <div class="control__indicator"></div>
+                    </label>
+                  </div>
+                  <div class="d-flex mb-5 align-items-center">
+                    <label class="control control--checkbox mb-0"><span class="caption">customer</span>
+                        {{ form.is_customer }}
+                      <div class="control__indicator"></div>
+                    </label>
+                  </div>
+                  <div class="d-flex mb-5 align-items-center">
+                    <label class="control control--checkbox mb-0"><span class="caption">employee</span>
+                        {{ form.is_employee }}
+                      <div class="control__indicator"></div>
+                    </label>
+                  </div>
+                    <button type="submit">next</button>
+
+</form>                 

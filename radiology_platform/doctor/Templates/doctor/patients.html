@@ -18,13 +18,16 @@
         <span class="text">My Patients</span>
       </a>
     </li>
+
     <script>
+      function changeUrl(url) {
+        history.pushState({}, "", url);
+      }
       $(document).ready(function () {
         $("#addPatient").click(function (event) {
-          window.location.href = "{% url 'add_patient' %}";
-
+          changeUrl("/doctor/createpatient");
           event.preventDefault();
-          /*$("#myForm").load('{% url "create_patient" %}');*/
+          $("#myForm").load('{% url "create_patient" %}');
         });
       });
     </script>
@@ -79,10 +82,22 @@
           <a class="active" href="#">Patients</a>
         </li>
       </ul>
+      {% for message in messages %}
+      <div class="alert alert-success">{{ message }}</div>
+      {% endfor %}
     </div>
     <a href="#" id="addPatient" class="btn-download">
       <i class="bx bx-add-to-queue"></i> <span class="text">Add Patient</span>
     </a>
+
+    <script>
+      setTimeout(function () {
+        let message = document.querySelector(".alert");
+        if (message) {
+          message.style.display = "none";
+        }
+      }, 3000);
+    </script>
   </div>
   <div id="myForm" class="container"></div>
 
