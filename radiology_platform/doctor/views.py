@@ -1,8 +1,9 @@
 from django.shortcuts import render,redirect
 from django.contrib import messages
+from django.db.models import Q
 from .forms import PatientForm
 from .models import Patient
-from django.db.models import Q
+
 
 
 # Create your views here.
@@ -22,7 +23,7 @@ def notificationsView(request):
 def create_patient(request):
     if request.method == 'POST':
         form = PatientForm(request.POST)
-        print('form recived')
+        print('form received')
         if form.is_valid():
             email = form.cleaned_data['email']
             cin_number = form.cleaned_data['cin_number']

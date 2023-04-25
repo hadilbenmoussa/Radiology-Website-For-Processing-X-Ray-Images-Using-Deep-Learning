@@ -1,4 +1,5 @@
 from django.db import models
+
 from django.contrib.auth.models import AbstractUser,Group,Permission
 # Create your models here.
 
@@ -8,4 +9,3 @@ class User(AbstractUser):
     is_customer = models.BooleanField('Is customer', default=False)
     is_employee = models.BooleanField('Is employee', default=False)
  
-    
