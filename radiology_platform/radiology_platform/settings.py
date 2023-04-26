@@ -29,6 +29,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -43,6 +44,9 @@ INSTALLED_APPS = [
     'patient.apps.PatientConfig',
     'doctor.apps.DoctorConfig',
     'account.apps.AccountConfig',
+    #OTP
+     'pyotp',
+    
 
 ]
 

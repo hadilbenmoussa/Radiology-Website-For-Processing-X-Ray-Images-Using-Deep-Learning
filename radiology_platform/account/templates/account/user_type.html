@@ -1,23 +1,48 @@
-<form method="post">
-  {% csrf_token %}
-<div class="d-flex mb-5 align-items-center">
-                    <label class="control control--checkbox mb-0"><span class="caption">Admin</span>
-                        {{ form.is_admin }}
-                      <div class="control__indicator"></div>
-                    </label>
-                  </div>
-                  <div class="d-flex mb-5 align-items-center">
-                    <label class="control control--checkbox mb-0"><span class="caption">customer</span>
-                        {{ form.is_customer }}
-                      <div class="control__indicator"></div>
-                    </label>
-                  </div>
-                  <div class="d-flex mb-5 align-items-center">
-                    <label class="control control--checkbox mb-0"><span class="caption">employee</span>
-                        {{ form.is_employee }}
-                      <div class="control__indicator"></div>
-                    </label>
-                  </div>
-                    <button type="submit">next</button>
 
-</form>                 
+{% load static %}
+
+<html>
+  <head>
+    <link href="{% static 'css/user-type.css' %}" rel="stylesheet" />
+  </head>
+  <body>
+   <h1 class="title">What Do You Plan To Use Radio.Ai For?</h1>
+      {% if msg %} {{ msg | safe }} {% else %} Double Tap to uncheck {% endif %}
+      <p>Please select which describes you best so
+         that we can provide the most suitable account type 
+        for you and helpful resources to get you started.</p>
+<form method="post">
+    {% csrf_token %}
+
+   {{ form.is_admin }}
+<label for="tonnarelli" class="checkbox-label">
+  <img src="{% static 'images/doctor.png'%} " alt="" />
+
+  <div class="checkbox-text">
+    <p class="checkbox-text--title">Doctor</p>
+  </div>
+</label>
+
+   {{ form.is_customer }}
+<label for="spaghetti" class="checkbox-label">
+    <img src="{% static 'images/radiologist.png'%} " alt="" />
+
+  <div class="checkbox-text">
+    <p class="checkbox-text--title">Radiologist</p>
+  </div>
+</label>
+   {{ form.is_employee }}
+<label for="fettuccine" class="checkbox-label">
+    <img src="{% static 'images/patient.png'%} " alt="" />
+
+  <div class="checkbox-text">
+    <p class="checkbox-text--title">Patient</p>
+  </div>
+</label>
+          <input class="button" type="submit" value="Continue" />
+
+
+</form>
+
+  </body>
+</html>

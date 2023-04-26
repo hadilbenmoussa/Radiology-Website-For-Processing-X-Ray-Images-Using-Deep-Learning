@@ -1,9 +1,15 @@
 from django.shortcuts import render, redirect
-from .forms import SignUpForm, LoginForm,UserTypeForm
+from .forms import SignUpForm, LoginForm,UserTypeForm,PatientSignUpForm
 from django.contrib.auth import authenticate, login,logout
 from doctor.models import Patient
 from django.contrib import messages
 from django.db.models import Q
+import qrcode
+from io import BytesIO
+import base64
+import pyotp
+from .models import GoogleAuthenticator
+
 # Create your views here.
 
 
@@ -14,6 +20,7 @@ def logout_user(request):
     logout(request)
     return redirect('login_view')
 def user_type(request):
+    msg = None
     if request.method == 'POST':
         form = UserTypeForm(request.POST)
         if form.is_valid():
@@ -27,11 +34,12 @@ def user_type(request):
                 return redirect('register_patient',is_admin=is_admin,is_customer=is_customer, 
                     is_employee=is_employee)
           
-
+        else:
+            msg='Please Select only one Role'
             # Do something with the checkbox values...
     else:
         form = UserTypeForm()
-    return render(request, 'account/user_type.html',{'form': form})
+    return render(request, 'account/user_type.html',{'form': form,'msg': msg})
 
 def register_medical(request,is_admin,is_customer, is_employee):
     msg = None
@@ -46,7 +54,21 @@ def register_medical(request,is_admin,is_customer, is_employee):
             user.is_admin = is_admin
             user.save()
             msg = 'user created'
-            return redirect('login_view')
+           
+            # Generate a random secret key for the user
+            secret_key = pyotp.random_base32()
+            # Create a new GoogleAuthenticator object for the user
+            ga = GoogleAuthenticator.objects.create(user=user, secret_key=secret_key)
+            # Generate the QR code image
+            otp_uri = ga.get_otp_uri()
+            img = qrcode.make(otp_uri)
+            buffer = BytesIO()
+            img.save(buffer, format='PNG')
+            qr_image = base64.b64encode(buffer.getvalue()).decode()
+
+            # Render the registration template with the QR code image and other data
+            return render(request, 'account/register.html', {'qr_image': qr_image })
+
             
         else:
             msg = 'form is not valid'
@@ -58,12 +80,15 @@ def register_patient(request,is_admin,is_customer, is_employee):
     msg = None
     
     if request.method == 'POST':
-        form = SignUpForm(request.POST)
+        form = PatientSignUpForm(request.POST)
         if form.is_valid():
             email = form.cleaned_data['email']
-            existing_patient = get_object_or_none(Patient, email=email)
+            cin_number = form.cleaned_data['cin_number']
+            
+            existing_patient = get_object_or_none(Patient, email=email,cin_number=cin_number)
+            print(existing_patient)
             if existing_patient:
-                messages.success(request,'registration successful')
+                msg='registration successful'
                 user = form.save(commit=False)
                 user.is_employee = is_employee
                 user.is_customer = is_customer
@@ -73,15 +98,15 @@ def register_patient(request,is_admin,is_customer, is_employee):
                 return redirect('login_view')
 
             else:
-                messages.success(request,'Wait till your doctor add your informations')
-                form=SignUpForm()
+                msg='Wait till your doctor add your informations'
+                form=PatientSignUpForm()
 
             
         else:
             msg = 'form is not valid'
     else:
-        form = SignUpForm()
-    return render(request,'account/register.html', {'form': form, 'msg': msg})
+        form = PatientSignUpForm()
+    return render(request,'account/patientregister.html', {'form': form, 'msg': msg})
 
 
 def login_view(request):
@@ -91,16 +116,30 @@ def login_view(request):
         if form.is_valid():
             username = form.cleaned_data.get('username')
             password = form.cleaned_data.get('password')
+            otp = request.POST['otp']
+
             user = authenticate(username=username, password=password)
-            if user is not None and user.is_admin:
-                login(request, user)
-                return redirect('adminpage')
-            elif user is not None and user.is_customer:
-                login(request, user)
-                return redirect('customer')
-            elif user is not None and user.is_employee:
-                login(request, user)
-                return redirect('employee')
+              # Get the GoogleAuthenticator object associated with the user
+            try:
+                ga = GoogleAuthenticator.objects.get(user=user)
+            except GoogleAuthenticator.DoesNotExist:
+                ga = None
+        # Verify the user's OTP
+            if ga is not None:
+                totp = pyotp.TOTP(ga.secret_key)
+                if totp.verify(otp):
+                    if user is not None and user.is_admin:
+                       login(request, user)
+                       return redirect('adminpage')
+                    elif user is not None and user.is_customer:
+                       login(request, user)
+                       return redirect('customer')
+                    elif user is not None and user.is_employee:
+                       login(request, user)
+                       return redirect('employee')
+                else:
+                # OTP is invalid, show an error message
+                    msg = 'Invalid OTP'   
             else:
                 msg= 'invalid credentials'
         else:
@@ -121,11 +160,14 @@ def employee(request):
 
 
 
-
-def get_object_or_none(model, email=None):
+def get_object_or_none(model, email=None, cin_number=None, **kwargs):
     filter_condition = Q()
     if email is not None:
-        filter_condition |= Q(email=email)
+        filter_condition &= Q(email=email)
+    if cin_number is not None:
+        filter_condition &= Q(cin_number=cin_number)
+    if kwargs:
+        filter_condition &= Q(**kwargs)
 
     try:
         return model.objects.get(filter_condition)

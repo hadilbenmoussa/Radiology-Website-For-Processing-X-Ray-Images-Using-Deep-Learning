@@ -1,4 +1,4 @@
-
+{% comment %} 
   <div class="content">
     <div class="container">
       <div class="row justify-content-center">
@@ -48,5 +48,51 @@
 
       </div>
     </div>
-  </div>
+  </div> {% endcomment %}
 
+ {% load static %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <link href="{% static 'css/register.css' %}" rel="stylesheet" />
+  </head>
+<div class="form_wrapper">
+  <div class="form_container">
+    <div class="title_container">
+      <h2>Login</h2>
+    </div>
+    <span class="mb-0 text-muted">
+      {% if form.errors %}
+    <div class="alert alert-danger">
+        {{ form.errors }}
+    </div>
+{% endif %}
+      {% if msg %} {{ msg | safe }} {% endif %}
+    </span>
+    <div class="row clearfix">
+      <div class="">
+        <form method="post">
+          {% csrf_token %}
+          <div class="input_field">
+            {{ form.username }}
+          </div>
+
+
+          <div class="input_field">
+            {{ form.password }}
+          </div>
+                    <div class="input_field">
+            {{ form.otp }}
+          </div>
+
+     
+<p class="forgotpassword"><a href="">Forgot Password</a></p>
+
+          <input class="button" type="submit" value="Login" />
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+</html>
