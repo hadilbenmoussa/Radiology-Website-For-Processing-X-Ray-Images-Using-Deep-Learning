@@ -1,25 +1,38 @@
- {% load static %}
+{% load static %}
+
+
 <!DOCTYPE html>
 <html>
   <head>
+    <link rel="stylesheet" 
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="{% static 'css/register.css' %}" rel="stylesheet" />
   </head>
 <div class="form_wrapper">
   <div class="form_container">
     <div class="title_container">
-      <h2>Responsive Registration Form</h2>
+      <h2>Healthcare Providers Registration</h2>
     </div>
-    {% if qr_image %}
-  <img src="data:image/png;base64,{{ qr_image }}" alt="QR Code">
-{% endif %}
-    <span class="mb-0 text-muted">
-      {% if form.errors %}
-    <div class="alert alert-danger">
-        {{ form.errors }}
+   
+{% if messages %}
+  {% for message in messages %}
+    <div class="container">
+      <div class="row">
+        <div id="aui-flag-container" style="top: 220px">
+          <div class="aui-flag" aria-hidden="false">
+            
+            <div id="message-container" class="aui-message{% if message.tags == 'success' %} aui-message-success success{% elif message.tags == 'error' %} aui-message-error error{% elif message.tags == 'warning' %} aui-message-warning warning{% endif %} closeable shadowed">
+              {{ message }}
+              <span class="aui-icon icon-close fa fa-close" role="button" tabindex="0"></span>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
+    {% endfor %}
+<script src="{% static 'js/messages.js' %}"></script>
 {% endif %}
-      {% if msg %} {{ msg | safe }} {% else %} Login page {% endif %}
-    </span>
+
     <div class="row clearfix">
       <div class="">
         <form method="post">
@@ -39,7 +52,7 @@
               </div>
             </div>
           </div>
-                    <div class="input_field">
+          <div class="input_field">
             {{ form.email }}
           </div>
           <div class="input_field">
@@ -49,13 +62,13 @@
             {{ form.password2 }}
           </div>
           <div class="input_field checkbox_option">
-              <div class="form-check">
-
-            {{ form.accept_terms }}
-         <label class="form-check-label" for="{{ form.accept_terms.id_for_label }}">
-      {{ form.accept_terms.label }}
+            <div class="form-check">
+              {{ form.accept_terms }}
+              <label class="form-check-label" for="{{ form.accept_terms.id_for_label }}">
+                {{ form.accept_terms.label }}
+              </label>
+            </div>
           </div>
-        </div>
           <input class="button" type="submit" value="Register" />
         </form>
       </div>

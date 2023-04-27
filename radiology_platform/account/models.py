@@ -5,9 +5,9 @@ from django.contrib.auth.models import AbstractUser,Group,Permission
 
 
 class User(AbstractUser):
-    is_admin= models.BooleanField('Is admin', default=False)
-    is_customer = models.BooleanField('Is customer', default=False)
-    is_employee = models.BooleanField('Is employee', default=False)
+    is_radiologist= models.BooleanField('Is radiologist', default=False)
+    is_doctor = models.BooleanField('Is doctor', default=False)
+    is_patient = models.BooleanField('Is patient', default=False)
     cin_number=models.IntegerField('cin_number',default=0000000)
 class GoogleAuthenticator(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)

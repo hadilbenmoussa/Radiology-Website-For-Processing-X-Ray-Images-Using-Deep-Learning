@@ -1,30 +1,35 @@
- {% load static %}
+{% load static %}
 <!DOCTYPE html>
 <html>
   <head>
+    <link rel="stylesheet" 
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="{% static 'css/register.css' %}" rel="stylesheet" />
   </head>
 <div class="form_wrapper">
   <div class="form_container">
     <div class="title_container">
-      <h2>Registration</h2>
+      <h2>Patient Registration</h2>
     </div>
-    <span class="mb-0 text-muted">
-      {% if form.errors %}
-    <div class="alert alert-danger">
-        {{ form.errors }}
+  
+{% if messages %}
+  {% for message in messages %}
+    <div class="container">
+      <div class="row">
+        <div id="aui-flag-container" style="top: 220px">
+          <div class="aui-flag" aria-hidden="false">
+            
+            <div id="message-container" class="aui-message{% if message.tags == 'success' %} aui-message-success success{% elif message.tags == 'error' %} aui-message-error error{% elif message.tags == 'warning' %} aui-message-warning warning{% endif %} closeable shadowed">
+              {{ message }}
+              <span class="aui-icon icon-close fa fa-close" role="button" tabindex="0"></span>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
+    {% endfor %}
+<script src="{% static 'js/messages.js' %}"></script>
 {% endif %}
-  <ul class="messages">
-{% if msg %}
-
-
-      <li{% if msg.tags %} class="{{ msg.tags }}"{% endif %}>{{ msg }}</li>
-   
-  </ul>
-{% endif %}
-
-    </span>
     <div class="row clearfix">
       <div class="">
         <form method="post">
@@ -71,9 +76,4 @@
     </div>
   </div>
 </div>
-<script>
-  setTimeout(function() {
-    document.getElementById('messages').style.display = 'none';
-  }, 3000); // 3000ms = 3 seconds
-</script>
 </html>

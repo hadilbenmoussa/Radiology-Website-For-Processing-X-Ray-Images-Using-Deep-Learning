@@ -1,98 +1,55 @@
-{% comment %} 
-  <div class="content">
-    <div class="container">
-      <div class="row justify-content-center">
-        <!-- <div class="col-md-6 order-md-2">
-          <img src="images/undraw_file_sync_ot38.svg" alt="Image" class="img-fluid">
-        </div> -->
-        <div class="col-md-6 contents">
-          <div class="row justify-content-center">
-            <div class="col-md-12">
-              <div class="form-block">
-                  <div class="mb-4">
-                </div>
-
-              <span class="mb-0 text-muted">
-                {% if msg %}
-                    {{ msg | safe }}
-                {% else %}
-                    Login page
-                {% endif %}
-              </span>
-                <form  method="post">
-                    {% csrf_token %}
-                  <div class="form-group first">
-                    <label for="username">Username</label>
-                      {{ form.username }}
-                  </div>
-                  <div class="form-group last mb-4">
-                    <label for="username">Password</label>
-                    {{ form.password }}
-                  </div>
-
-                  <div class="d-flex mb-5 align-items-center">
-                    <label class="control control--checkbox mb-0"><span class="caption">Remember me</span>
-                      <input type="checkbox" checked="checked"/>
-                      <div class="control__indicator"></div>
-                    </label>
-                    <span class="ml-auto"><a href="#" class="forgot-pass">Forgot Password</a></span>
-                  </div>
-
-                  <input type="submit" value="Log In" class="btn btn-pill text-white btn-block btn-primary">
-                </form>
-              </div>
-            </div>
-          </div>
-
-        </div>
-
-      </div>
-    </div>
-  </div> {% endcomment %}
-
- {% load static %}
+{% load static %}
 <!DOCTYPE html>
 <html>
   <head>
+      <link rel="stylesheet" 
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="{% static 'css/register.css' %}" rel="stylesheet" />
   </head>
-<div class="form_wrapper">
-  <div class="form_container">
-    <div class="title_container">
-      <h2>Login</h2>
-    </div>
-    <span class="mb-0 text-muted">
-      {% if form.errors %}
-    <div class="alert alert-danger">
-        {{ form.errors }}
-    </div>
-{% endif %}
-      {% if msg %} {{ msg | safe }} {% endif %}
-    </span>
-    <div class="row clearfix">
-      <div class="">
-        <form method="post">
-          {% csrf_token %}
-          <div class="input_field">
-            {{ form.username }}
+  <body>
+    <div class="form_wrapper">
+      <div class="form_container">
+        <div class="title_container">
+          <h2>Login</h2>
+        </div>
+        <div class="row clearfix">
+      
+{% if messages %}
+  {% for message in messages %}
+    <div class="container">
+      <div class="row">
+        <div id="aui-flag-container" style="top: 220px">
+          <div class="aui-flag" aria-hidden="false">
+            
+            <div id="message-container" class="aui-message{% if message.tags == 'success' %} aui-message-success success{% elif message.tags == 'error' %} aui-message-error error{% elif message.tags == 'warning' %} aui-message-warning warning{% endif %} closeable shadowed">
+              {{ message }}
+              <span class="aui-icon icon-close fa fa-close" role="button" tabindex="0"></span>
+            </div>
           </div>
-
-
-          <div class="input_field">
-            {{ form.password }}
-          </div>
-                    <div class="input_field">
-            {{ form.otp }}
-          </div>
-
-     
-<p class="forgotpassword"><a href="">Forgot Password</a></p>
-
-          <input class="button" type="submit" value="Login" />
-        </form>
+        </div>
       </div>
     </div>
-  </div>
-</div>
+<script src="{% static 'js/messages.js' %}"></script>
 
+  {% endfor %}
+{% endif %}
+            <form method="post">
+              {% csrf_token %}
+              <div class="input_field">
+                {{ form.username }}
+              </div>
+              <div class="input_field">
+                {{ form.password }}
+              </div>
+              <div class="input_field">
+                {{ form.otp }}
+              </div>
+              <p class="forgotpassword"><a href="">Forgot Password</a></p>
+              <input class="button" type="submit" value="Login" />
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>
