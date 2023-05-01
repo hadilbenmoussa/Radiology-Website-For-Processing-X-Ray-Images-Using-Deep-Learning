@@ -112,3 +112,42 @@
     width: auto;
   }
 }
+@media screen and (min-width: 540px) {
+    .checkbox-label {
+        width: 450px;
+        margin: 16px;
+    }
+
+
+}
+
+@media screen and (max-width: 540px) {
+    .title {
+        font-size: 27px;
+        font-weight: 150;
+        margin-bottom: 27px;
+    }
+}
+/* Django messages */
+
+@media only screen and (max-width: 768px) {
+    #aui-flag-container {
+        right: auto;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .aui-message {
+        width: 90%;
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+    .aui-message:before {
+        width: 20px;
+    }
+
+    .aui-message.closeable .icon-close {
+width :70%;
+    }
+}

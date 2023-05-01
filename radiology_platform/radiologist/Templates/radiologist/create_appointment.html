@@ -1,0 +1,21 @@
+<form class="form-group" method="post" hx-post="{% url 'create_appointment' report.id %}" onsubmit="window.location.href='{% url 'rad_reports' %}'">
+  {% csrf_token %} {{ form.as_p }}
+  {{report.id}}
+    {% if form.errors %}
+    <div class="alert alert-danger">
+      {% for field, errors in form.errors.items %}
+        {{ field }}:
+        {% for error in errors %}
+          {{ error }}
+        {% endfor %}
+      {% endfor %}
+    </div>
+  {% endif %}
+  <input type="submit" class="submit" value="Submit"/>
+  <input
+    type="button"
+    class="cancel"
+    value="Cancel"
+    onclick="window.location.href='{% url 'rad_reports' %}'"
+  />
+</form>

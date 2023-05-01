@@ -1,0 +1,9 @@
+
+
+    <h1>Confirm delete</h1>
+    <span class="text">Are you sure you want to delete {{ appointment.patient.firstname }} {{ appointment.patient.lastname }}'s appointment on {{ appointment.date_and_time }}?</span>
+    <form class="form-group" method="POST" action="{% url 'delete-appointment' appointment.id %}">
+      {% csrf_token %}
+      <button type="submit" class="btn btn-danger">Delete</button>
+    </form>
+    <button type="button" class="btn btn-secondary" hx-get=".modal">Cancel</button>

@@ -10,12 +10,20 @@
       href="https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css"
       rel="stylesheet"
     />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.min.css" integrity="sha256-DOS9W6NR+NFe1fUhEE0PGKY/fubbUCnOfTje2JMDw3Y=" crossorigin="anonymous" />
+
+
+
     <!-- My CSS -->
     <link rel="stylesheet" href="{% static 'styles/styledoc.css'%}" />
-
+    {% block extra_css %}{% endblock %}
     <title>Radio.AI</title>
+    <script src="https://unpkg.com/htmx.org@1.9.1"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js" integrity="sha256-FEqEelWI3WouFOo2VWP/uJfs1y8KJ++FLh2Lbqc8SJk=" crossorigin="anonymous"></script>
+
   </head>
+
   <body>
     <!-- CONTENT -->
     <section id="content">
@@ -37,9 +45,10 @@
           <i class="bx bxs-bell"></i>
           <span class="num">8</span>
         </a>
-        <a href="#" class="profile">
+        <a href="{% url 'profil' username=request.user.username %}" class="profile">
           <img src="{% static 'images/people.png' %}" />
         </a>
+
       </nav>
       <!-- NAVBAR -->
       {% block content %}{% endblock %}
@@ -47,5 +56,11 @@
     <!-- CONTENT -->
 
     <script src="{% static 'js/script.js' %}"></script>
+    <script>
+        document.body.addEventListener('htmx:configRequest', (event) => {
+            event.detail.headers['X-CSRFToken'] = '{{ csrf_token }}';
+        })
+    </script>
+
   </body>
 </html>

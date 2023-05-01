@@ -25,29 +25,29 @@ class LoginForm(forms.Form):
     otp = forms.CharField(max_length=6, widget=forms.TextInput(attrs={'autocomplete': 'off',"placeholder": "Enter OTP"}))
 
 class UserTypeForm(forms.Form):
-    is_admin = forms.BooleanField(label='Tonnarelli', required=False,
+    is_radiologist = forms.BooleanField(label='Tonnarelli', required=False,
         widget=forms.CheckboxInput(attrs={
             'class': 'checkbox-input',
             'id': 'tonnarelli',
         })
     )
-    is_customer = forms.BooleanField(label='customer', required=False ,        widget=forms.CheckboxInput(attrs={
+    is_doctor = forms.BooleanField(label='doctor', required=False ,        widget=forms.CheckboxInput(attrs={
             'class': 'checkbox-input',
             'id': 'spaghetti',
         })
     )
-    is_employee = forms.BooleanField(label='employee', required=False,widget=forms.CheckboxInput(attrs={
+    is_patient = forms.BooleanField(label='patient', required=False,widget=forms.CheckboxInput(attrs={
             'class': 'checkbox-input',
             'id': 'fettuccine',
         }))
     
     def clean(self):
         cleaned_data = super().clean()
-        is_admin = cleaned_data.get('is_admin')
-        is_employee = cleaned_data.get('is_employee')
-        is_customer = cleaned_data.get('is_customer')
+        is_radiologist = cleaned_data.get('is_radiologist')
+        is_doctor = cleaned_data.get('is_doctor')
+        is_patient = cleaned_data.get('is_patient')
 
-        roles_selected = [is_admin, is_employee, is_customer]
+        roles_selected = [is_radiologist , is_doctor, is_patient]
         roles_selected_count = roles_selected.count(True)
 
         if roles_selected_count > 1:

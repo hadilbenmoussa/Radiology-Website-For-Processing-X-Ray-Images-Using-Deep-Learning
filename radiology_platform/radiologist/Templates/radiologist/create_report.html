@@ -1,0 +1,10 @@
+<form class="form-group" method="post" hx-post="{% url 'rad_create_report' %}" onsubmit="window.location.href='{% url 'rad_reports' %}'">
+  {% csrf_token %} {{ form.as_p }}
+  <input type="submit" class="submit" value="Submit"/>
+  <input
+    type="button"
+    class="cancel"
+    value="Cancel"
+    onclick="window.location.href='{% url 'rad_reports' %}'"
+  />
+</form>

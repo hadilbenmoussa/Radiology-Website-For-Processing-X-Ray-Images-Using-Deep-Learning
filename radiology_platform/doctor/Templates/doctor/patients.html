@@ -1,5 +1,11 @@
-{% extends 'maindoctor.html' %} {% load static %}{% block content %}
-<!-- SIDEBAR -->
+{% extends 'maindoctor.html' %} {% load static %}
+{% block extra_css %}
+    <link href="{% static 'styles/styleforms.css' %}" rel="stylesheet" />
+
+{% endblock %}
+
+{% block content %}
+
 <section id="sidebar">
   <a href="#" class="brand">
     <img src="{% static 'images/aiblue.png' %}" alt="icon" class="icon" />
@@ -45,7 +51,7 @@
       </a>
     </li>
     <li>
-      <a href="{% url 'blog' %}">
+      <a href="{% url 'addblog' %}">
         <i class="bx bx-news"></i>
         <span class="text">Publish to Blog</span>
       </a>
@@ -53,7 +59,7 @@
   </ul>
   <ul class="side-menu">
     <li>
-      <a href="{% url 'profil' %}">
+      <a href="{% url 'profil' username=request.user.username %}">
         <i class="bx bx-user"></i>
         <span class="text">Profil</span>
       </a>
@@ -86,9 +92,19 @@
       <div class="alert alert-success">{{ message }}</div>
       {% endfor %}
     </div>
-    <a href="#" id="addPatient" class="btn-download">
-      <i class="bx bx-add-to-queue"></i> <span class="text">Add Patient</span>
-    </a>
+
+<a href="#" class="btn-download" hx-get="{% url 'create_patient' %}" hx-target="#myForm" hx-swap="afterend" hx-trigger="click" onclick="hideButton()">
+  <i class="bx bx-add-to-queue"></i>
+  <span class="text">Add Patient</span>
+</a>
+
+<script>
+  function hideButton() {
+    const btnDownload = document.querySelector('.btn-download');
+    btnDownload.style.display = 'none';
+  }
+</script>
+  <div id="myForm" class="container"></div>
 
     <script>
       setTimeout(function () {
@@ -99,7 +115,6 @@
       }, 3000);
     </script>
   </div>
-  <div id="myForm" class="container"></div>
 
   <div class="table-data">
     <div class="order">
@@ -108,65 +123,33 @@
         <i class="bx bx-search"></i>
         <i class="bx bx-filter"></i>
       </div>
-      <table>
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Visited Date</th>
-            <th>Report Status</th>
-            <th>Medical History</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>
-              <img src="img/people.png" />
-              <p>John Doe</p>
-            </td>
-            <td>01-10-2021</td>
-            <td><span class="status completed">Completed</span></td>
-            <td>Read More</td>
-          </tr>
-          <tr>
-            <td>
-              <img src="img/people.png" />
-              <p>John Doe</p>
-            </td>
-            <td>01-10-2021</td>
-            <td><span class="status pending">Pending</span></td>
-            <td>Read More</td>
-          </tr>
-          <tr>
-            <td>
-              <img src="img/people.png" />
-              <p>John Doe</p>
-            </td>
-            <td>01-10-2021</td>
-            <td><span class="status process">Process</span></td>
-            <td>Read More</td>
-          </tr>
-          <tr>
-            <td>
-              <img src="img/people.png" />
-              <p>John Doe</p>
-            </td>
-            <td>01-10-2021</td>
-            <td><span class="status pending">Pending</span></td>
-            <td>Read More</td>
-          </tr>
-          <tr>
-            <td>
-              <img src="img/people.png" />
-              <p>John Doe</p>
-            </td>
-            <td>01-10-2021</td>
-            <td><span class="status completed">Completed</span></td>
-            <td>Read More</td>
-          </tr>
-        </tbody>
-      </table>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Medical History</th>
+      <th>Notes</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for patient in patients %}
+    <tr>
+      <td>
+        <img src="img/people.png" />
+        <p>{{ patient.firstname }} {{ patient.lastname }}</p>
+      </td>
+
+      <td>
+        <a href="{% url 'medical_history' patient.id %}">View Medical History</a>
+      </td>
+      <td>{{ patient.notes }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
     </div>
   </div>
+
 </main>
 
 <!-- MAIN -->

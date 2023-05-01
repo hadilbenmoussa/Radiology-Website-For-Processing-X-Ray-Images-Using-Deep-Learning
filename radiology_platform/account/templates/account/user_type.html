@@ -1,37 +1,59 @@
-
 {% load static %}
 
 <html>
   <head>
+<link rel="stylesheet" 
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
     <link href="{% static 'css/user-type.css' %}" rel="stylesheet" />
   </head>
   <body>
    <h1 class="title">What Do You Plan To Use Radio.Ai For?</h1>
-      {% if msg %} {{ msg | safe }} {% else %} Double Tap to uncheck {% endif %}
+      
+{% if messages %}
+  {% for message in messages %}
+    <div class="container">
+      <div class="row">
+        <div id="aui-flag-container" style="top: 220px">
+          <div class="aui-flag" aria-hidden="false">
+            
+            <div id="message-container" class="aui-message{% if message.tags == 'success' %} aui-message-success success{% elif message.tags == 'error' %} aui-message-error error{% elif message.tags == 'warning' %} aui-message-warning warning{% endif %} closeable shadowed">
+              {{ message }}
+              <span class="aui-icon icon-close fa fa-close" role="button" tabindex="0"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+<script src="{% static 'js/messages.js' %}"></script>
+
+  {% endfor %}
+{% endif %}
       <p>Please select which describes you best so
          that we can provide the most suitable account type 
         for you and helpful resources to get you started.</p>
+        <small>Double Tap to uncheck !</small>
 <form method="post">
     {% csrf_token %}
 
-   {{ form.is_admin }}
+   {{ form.is_radiologist }}
 <label for="tonnarelli" class="checkbox-label">
-  <img src="{% static 'images/doctor.png'%} " alt="" />
-
-  <div class="checkbox-text">
-    <p class="checkbox-text--title">Doctor</p>
-  </div>
-</label>
-
-   {{ form.is_customer }}
-<label for="spaghetti" class="checkbox-label">
-    <img src="{% static 'images/radiologist.png'%} " alt="" />
+  <img src="{% static 'images/radiologist.png'%} " alt="" />
 
   <div class="checkbox-text">
     <p class="checkbox-text--title">Radiologist</p>
   </div>
 </label>
-   {{ form.is_employee }}
+
+   {{ form.is_doctor }}
+<label for="spaghetti" class="checkbox-label">
+    <img src="{% static 'images/doctor.png'%}" alt="" />
+
+  <div class="checkbox-text">
+    <p class="checkbox-text--title">Doctor</p>
+  </div>
+</label>
+   {{ form.is_patient }}
 <label for="fettuccine" class="checkbox-label">
     <img src="{% static 'images/patient.png'%} " alt="" />
 

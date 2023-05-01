@@ -1,0 +1,58 @@
+
+  <div class="container mt-5">
+    <h2>Report Details</h2>
+    <table class="table mt-5">
+      <tbody>
+        <tr>
+          <th>Report:</th>
+          <td>{{ report.id }}</td>
+        </tr>
+        <tr>
+          <th>Patient Name:</th>
+          <td>{{ report.patient.firstname }} {{ report.patient.lastname }}</td>
+        </tr>
+        <tr>
+          <th>Date:</th>
+          <td>{{ report.date }}</td>
+        </tr>
+        <tr>
+          <th>Type of Exam:</th>
+          <td>{{ report.exam_type }}</td>
+        </tr>
+        <tr>
+          <th>Body Part:</th>
+          <td>{{ report.body_part }}</td>
+        </tr>
+        <tr>
+          <th>Report File:</th>
+          <td>{% if report.report_file %}
+                <a href="{{ report.report_file.url }}" download>Download</a>
+            {% endif %}</td>
+        </tr>
+        <tr>
+          <th>Status:</th>
+          <td>
+            {% if report.status == 'Requested' %}
+              <span class="status pending">Pending</span>
+            {% elif report.status == 'Completed' %}
+              <span class="status completed">Completed</span>
+            {% elif report.status == 'Process' %}
+              <span class="status process">Process</span>
+            {% endif %}
+          </td>
+        </tr>
+        <tr>
+          <th>Details:</th>
+          <td>{{ report.details }}</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="row">
+      <div class="col-sm-6">
+        <a href=# class="btn btn-primary">Update Report</a>
+      </div>
+      <div class="col-sm-6 text-right">
+        <a href="{% url 'rad_reports' %}" class="btn btn-secondary">Back to Reports</a>
+      </div>
+    </div>
+  </div>

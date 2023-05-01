@@ -33,7 +33,7 @@
       </a>
     </li>
     <li>
-      <a href="{% url 'blog' %}">
+      <a href="{% url 'addblog' %}">
         <i class="bx bx-news"></i>
         <span class="text">Publish to Blog</span>
       </a>
@@ -41,7 +41,7 @@
   </ul>
   <ul class="side-menu">
     <li>
-      <a href="{% url 'profil' %}">
+      <a href="{% url 'profil' username=request.user.username %}">
         <i class="bx bx-user"></i>
         <span class="text">Profil</span>
       </a>

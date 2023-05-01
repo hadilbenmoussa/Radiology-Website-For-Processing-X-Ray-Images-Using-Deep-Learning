@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Medical History</title>
+  </head>
+  <body>
+    <h1>Medical History</h1>
+    
+    {% if patient %}
+    <h2>{{ patient.firstname }} {{ patient.lastname }}</h2>
+    <p>Notes: {{ patient.notes }}</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Details</th>
+          <th>Body Part</th>
+          <th>Exam Type</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for report in reports %}
+        <tr>
+          <td>{{ report.date }}</td>
+          <td>{{ report.details }}</td>
+          <td>{{ report.body_part }}</td>
+          <td>{{ report.exam_type }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% else %}
+    <p>No patient found with that ID.</p>
+    {% endif %}
+  </body>
+</html>
