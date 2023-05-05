@@ -6,9 +6,10 @@ class Appointment(models.Model):
     STATUS_CHOICES = [
         ('PENDING', 'Pending'),
         ('SCHEDULED', 'Scheduled'),
+        ('EXPIRED','Expired'),
     ]
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
-    report = models.OneToOneField(Report, on_delete=models.CASCADE)
+    report = models.ForeignKey(Report, on_delete=models.CASCADE)
     date_and_time = models.DateTimeField()
     body_part = models.CharField(max_length=100, choices=Report.BODY_PART_CHOICES)
     exam_type = models.CharField(max_length=100, choices=Report.EXAM_TYPE_CHOICES)

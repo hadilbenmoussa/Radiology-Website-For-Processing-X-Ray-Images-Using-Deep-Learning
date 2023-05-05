@@ -49,7 +49,14 @@
     </table>
     <div class="row">
       <div class="col-sm-6">
-        <a href=# class="btn btn-primary">Update Report</a>
+         {% if report.report_file %}
+        <a href=# class="btn btn-primary">Review Report</a>
+        <form method="post" enctype="multipart/form-data">
+           {% csrf_token %}
+        <input type="file" name="file">
+        <button type="submit">Upload</button>
+         </form>
+         {% endif %}
       </div>
       <div class="col-sm-6 text-right">
         <a href="{% url 'reports' %}" class="btn btn-secondary">Back to Reports</a>

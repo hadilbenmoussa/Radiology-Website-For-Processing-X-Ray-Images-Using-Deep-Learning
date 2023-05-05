@@ -1,4 +1,6 @@
 from django.shortcuts import render,redirect,get_object_or_404
+import os
+from django.conf import settings
 
 from django.contrib import messages
 from django.contrib.auth import logout
@@ -8,6 +10,9 @@ from .models import Patient,User,Report
 from  .decorators import doctor_required
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
+from django.urls import reverse
+from django.http import HttpResponseServerError
+
 
 
 # Create your views here.
@@ -61,7 +66,20 @@ def report_details(request, report_id):
         return render(request, 'doctor/report_details.html',{'report':report})
 
 
+def download_file(request, file_name):
+    try:
+        file_path = os.path.join(settings.MEDIA_ROOT, file_name)
+        with open(file_path, 'rb') as f:
+            response = HttpResponse(f.read(), content_type='application/octet-stream')
+            response['Content-Disposition'] = 'inline; filename=' + os.path.basename(file_path)
+            return response
+    except Exception as e:
+        return HttpResponseServerError(str(e))
 
+def download_report(request, report_id):
+    report = Report.objects.get(id=report_id)
+    download_url = reverse('download_file', args=[report.report_file.url])
+    return redirect(download_url)
 
 @doctor_required    
 def blogView(request):

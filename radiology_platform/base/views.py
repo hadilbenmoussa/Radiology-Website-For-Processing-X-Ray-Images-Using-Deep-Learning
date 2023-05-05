@@ -9,8 +9,8 @@ from.forms import SubscribersForm
 # Create your views here.
 def home(request):
     return render(request, 'base/home.html')
-def requestappointment(request):
-    return render(request, 'base/requestappointment.html')
+def writetestimonial(request):
+    return render(request, 'base/writetestimonial.html')
 def patientcare(request):
     return render(request, 'base/patientcare.html')
 
@@ -60,8 +60,31 @@ def newsletterView(request):
         'form' : form,
     }
     return render(request, 'base/newsletter.html',context)
+
 def aboutus(request):
     return render(request, 'base/aboutus.html')
+
+def newsletterfooterView(request):
+    if request.method=='POST':
+        form = SubscribersForm(request.POST)
+        if form.is_valid():
+            email = form.cleaned_data['email']
+            existing_subscriber = get_object_or_none(Subscribers, email=email)
+            if existing_subscriber:
+                messages.success(request,'Already Subscribed')
+            else:
+                messages.success(request,'Subscription Successful')
+                form.save()
+                return redirect('/footer')    
+                
+      
+    else :
+        form=SubscribersForm()
+   
+    context = {
+        'form' : form,
+    }
+    return render(request, 'footer.html',context)
 
 def get_object_or_none(model, **kwargs):
     try:

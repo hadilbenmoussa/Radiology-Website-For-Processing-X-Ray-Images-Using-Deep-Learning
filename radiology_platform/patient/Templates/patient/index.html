@@ -1,0 +1,26 @@
+{% comment %} {% extends 'headerPage.html' %}
+
+{% block content%}
+
+    <h2>upload image for classification</h2>
+
+    <br>
+
+    <form method="post" enctype="multipart/form-data" action="predictImage">
+        {% csrf_token %}
+        <div class="col-md-4 col-sm-4"><label for="fname">upload MRI scan here:</label> </div>
+        <input name="file" type="file">
+
+        <div>
+            <input type="submit" value="Submit">
+        </div>
+
+        <h2>The classification of the scan is "{{predictedLabel}}" with "{{percentage}}" % confidence</h2>
+        <img src="{{filePathName}}" alt='imagename'>
+        {{filePathName}} 
+
+    </form>
+
+    <br>
+
+{% endblock %} {% endcomment %}

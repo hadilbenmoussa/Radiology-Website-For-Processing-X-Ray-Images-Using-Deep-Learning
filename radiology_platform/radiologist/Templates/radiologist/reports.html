@@ -5,6 +5,121 @@
 {% endblock %}
 
 {% block content %}
+<style>
+  /* All elements should be border-boxes */
+
+input[type=checkbox] {
+  display: none;
+}
+
+
+
+
+button {
+  outline: none !important;
+}
+
+/* Wraps everyting, nothing special */
+.content-wrapper {
+  width: 100%;
+  padding: 10px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+/*
+  The sort of button-ish thingy.
+  It should be wrapped by a label and
+  should be followed by the checkbox.
+*/
+.button-container {
+  display: flex;
+  flex-direction: row;
+}
+
+.confirm-modal {
+  display: block;
+  pointer-events: none;
+  -webkit-transition: opacity 0.5s;
+  transition: opacity 0.5s;
+}
+.confirm-modal .btn {
+  width: auto;
+  max-width: auto;
+  margin: auto;
+}
+.confirm-modal::before {
+  /*
+    The shadow/backdrop which also is clickable to close the modal.
+  */
+  content: "";
+  display: block;
+  position: absolute;
+  top: 30px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  min-height: 200px;
+  z-index: 99;
+  opacity: 1;
+}
+.confirm-modal form {
+    /*
+      The actual modal.
+
+      Note: to not have clicks inside the modal
+      bleed through to the label (which would uncheck the checkbox),
+      pointer-events are set to none on the modal.
+    */
+  position: absolute;
+  z-index: 99;
+  top: 50px;
+  -webkit-transition: -webkit-transform 0.75s;
+  transition: -webkit-transform 0.75s;
+  transition: transform 0.75s;
+  transition: transform 0.75s, -webkit-transform 0.75s;
+  max-width: 90%;
+  width: 450px;
+  background-color: #fafafa;
+  padding: 20px;
+  left: 50%;
+  -webkit-transform: translate(-50%, 0);
+          transform: translate(-50%, 0);
+  box-shadow: 4px 4px 15px rgba(0, 0, 0, 0.2);
+  color: #;
+  border-radius: 5px;
+  pointer-events: none;
+}
+
+/* Hide the modal when the checkbox isn't checked. */
+input:not(:checked) + .confirm-modal {
+  /* Uncomment this for a sharper switch, which might work better on older browsers. */
+  /* display: none; */
+  /*
+    Might be wonky on older browsers, but allows for the fly down.
+    Also does the fade in.
+  */
+}
+input:not(:checked) + .confirm-modal, input:not(:checked) + .confirm-modal * {
+  opacity: 0;
+}
+input:not(:checked) + .confirm-modal::before {
+  height: 0;
+  width: 0;
+}
+
+/* For that cute little fly down effect */
+input:not(:checked) + .confirm-modal form {
+  -webkit-transform: translate(-50%, -100px);
+          transform: translate(-50%, -100px);
+}
+
+/* Allow buttons to be clickable. */
+.confirm-modal button {
+  pointer-events: all;
+}
+
+</style>
 
 <!-- SIDEBAR -->
 
@@ -83,10 +198,10 @@
 
 
 
-<a href="#" class="btn-download" hx-get="{% url 'rad_create_report' %}" hx-target="#myForm" hx-swap="afterend" hx-trigger="click" onclick="hideButton()">
+{% comment %} <a href="#" class="btn-download" hx-get="{% url 'rad_create_report' %}" hx-target="#myForm" hx-swap="afterend" hx-trigger="click" onclick="hideButton()">
   <i class="bx bx-add-to-queue"></i>
   <span class="text">Update Report</span>
-</a>
+</a> {% endcomment %}
 
 <script>
   function hideButton() {
@@ -102,7 +217,7 @@
   <div class="table-data" id="boxcontent">
     <div class="order">
       <div class="head">
-        <h3>Reports</h3>
+        <h3>Requested Reports</h3>
         <i class="bx bx-search"></i>
         <i class="bx bx-filter"></i>
       </div>
@@ -128,24 +243,109 @@
     <td>{{ report.urgency }}</td>
 
     <td>
-        {% if report.appointment %}
-          {% if report.appointment.status == 'S' %}
-            <span class="status process">Appointment Scheduled</span>
-          {% else %}
-            <span class="status pending"><a href="#" style='color:#ffffff' class="btn-download" hx-get="{% url 'create_appointment' report.id %}" hx-target="#appointment" hx-swap="afterend" hx-trigger="click" onclick="hideButton()"><i class='bx bx-alarm-add'></i>Add Appointment</a></span>
-          {% endif %}
-        {% else %}
-          <span class="status pending"><i class='bx bx-alarm-add'></i><a href="#" style='color:#ffffff' hx-get="{% url 'create_appointment' report.id %}" hx-target="#appointment" hx-swap="afterend" hx-trigger="click" onclick="hideButton()">Add Appointment</a></span>
-        {% endif %}
-      {% endif %}
+{% for appointment in report.appointment_set.all %}
+{% comment %} in case the appointment is scheduled and the date didn't expire yet  {% endcomment %}
+  {% if appointment.status == 'S' %}
+    <span class="status process">Appointment Scheduled {{appointment.date_and_time}}</span>
+    {% comment %} when there is an appointment scheduled we don't display the add appointment button {% endcomment %}
+    {% comment %} Exit the loop {% endcomment %}
+    {% with 'exit_loop' as exit_flag %}{% endwith %}
+  {% comment %} in case the appointment date is expired {% endcomment %}
+  {% elif appointment.status == 'EXPIRED' %}  
+   <label>
+  <span class="status pending" style= "cursor: pointer;">Appointment Expired</span>
+  <input type="checkbox" class="btn-delete" id="btn-report"/>
+  <div class="confirm-modal">
+  <form class="form-control" method="POST" action="{% url 'generate_report' report.id %}">
+    <h3>Confirm Appointment</h3>
+    <br>
+    <h5 class="text">Did the Patient {{ report.patient.firstname}} {{ report.patient.lastname }} attended his appointment on  {{ report.appointment_set.all.0.date_and_time}}?</h5>
+    {% csrf_token %}
+    <div class="button-container">
+      <button type="submit" class="btn" style="background-color:#1fab89;" onclick="window.location.href='{% url 'generate_report' report.id %}'">Generate Report</button>
+      <button type="button" class="btn" style="color:#112950;" onclick="window.location.href='{% url 'delete_report' report.id %}'">Delete Requested Report</button>
+    </div>
+  </form>
+</div>
+</label>
+<script>
+    // Get the checkbox input and modal form
+  const checkbox = document.getElementById('btn-report');
+  const modal = document.querySelector('.confirm-modal');
+  
+  // Show/hide modal form on checkbox change
+  checkbox.addEventListener('change', function() {
+    if (checkbox.checked) {
+      modal.style.display = 'block';
+    } else {
+      modal.style.display = 'none';
+    }
+  });
+
+
+</script>
+  {% endif %}
+{% comment %} when no appointment is scheduled we display add appointment button  {% endcomment %}
+{% empty %}
+  {% if not exit_flag %}
+    <span class="status completed"><a href="" style='color:#ffffff'  hx-get="{% url 'create_appointment' report.id %}" hx-target="#appointment" hx-swap="afterend" hx-trigger="click" onclick="hideButton()"><i class='bx bx-alarm-add'></i>Add Appointment</a></span>
+  {% endif %}
+{% endfor %}
+
+
     </td>
   </tr>
+    {% endif %}
+
 {% endfor %}
 
 
   
         </tbody>
       </table>
+      
+    </div>
+  </div>
+    <div class="table-data">
+    <div class="order">
+      <div class="head">
+        <h3>Processed Reports</h3>
+        <i class="bx bx-search"></i>
+        <i class="bx bx-filter"></i>
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>Report Status</th>
+            <th>Patient Name</th>
+            <th>Type of Exam</th>
+            <th>Report file</th>
+            
+
+          </tr>
+        </thead>
+        <tbody>
+{% for report in reports %}
+  {% if report.status == 'P' %}
+
+  <tr>
+    <td>{{ report.status }}</td>
+    <td>{{ report.patient.firstname }} {{report.patient.lastname}}</td>
+    <td>{{ report.exam_type }}</td>
+    <td><a href="{{ report.report_file.url }}" download class='status completed'>Download Report</a>
+</td>
+
+    <td>
+    </tr>
+       {% endif %}
+
+{% endfor %}
+
+
+  
+        </tbody>
+      </table>
+      
     </div>
   </div>
 

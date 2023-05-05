@@ -127,7 +127,7 @@
       <td>{{ report.body_part }}</td>
 
       <td>{% if report.report_file %}
-                <a href="{{ report.report_file.url }}" download>Download</a>
+              <a href="{% url 'download_file' file_name=report.report_file.name %}" download>Download</a>
             {% endif %}</td>
       
 

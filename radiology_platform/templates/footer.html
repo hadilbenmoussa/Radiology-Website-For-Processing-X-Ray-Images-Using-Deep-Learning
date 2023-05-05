@@ -51,7 +51,7 @@
           <h4>Links</h4>
           <div class="footer_links">
             <a class="active" href="{% url 'home' %}"> Home </a>
-            <a class="" href="{% url 'requestappointment' %}">
+            <a class="" href="{% url 'writetestimonial' %}">
               Request Appointment
             </a>
             <a class="" href="{% url 'patientcare' %}"> Patient Care </a>
@@ -62,16 +62,14 @@
       </div>
       <div class="col-md-6 col-lg-3 footer_col">
         <h4>Newsletter</h4>
-        <form action="#">
-          <input type="email" placeholder="Enter email" />
-          <button type="submit">Subscribe</button>
-        </form>
+        <form action="">
+          <button type="submit"><a href="{% url 'newsletter' %}" style="color:white;">Subscribe</a></button></form>
+
       </div>
     </div>
     <div class="footer-info">
       <p>
         &copy; <span id="displayYear"></span> All Rights Reserved By
-        <a href="https://html.design/">Free Html Templates</a>
       </p>
     </div>
   </div>

@@ -199,10 +199,10 @@ input:not(:checked) + .confirm-modal form {
     </div>
 
 
-<a href="#" class="btn-download" hx-get="{% url 'rad_create_report' %}" hx-target="#myForm" hx-swap="afterend" hx-trigger="click" onclick="hideButtondelete()">
+{% comment %} <a href="#" class="btn-download" hx-get="{% url 'rad_create_report' %}" hx-target="#myForm" hx-swap="afterend" hx-trigger="click" onclick="hideButtondelete()">
   <i class="bx bx-add-to-queue"></i>
   <span class="text">Add Appointment</span>
-</a>
+</a> {% endcomment %}
 
 
   <div id="myForm" class="container"></div>
@@ -215,8 +215,8 @@ input:not(:checked) + .confirm-modal form {
     <div class="order">
       <div class="head">
         <h3>Appointments List</h3>
-        <i class="bx bx-search"></i>
-        <i class="bx bx-filter"></i>
+        {% comment %} <i class="bx bx-search"></i>
+        <i class="bx bx-filter"></i> {% endcomment %}
       </div>
 <table>
   <thead>
@@ -225,40 +225,43 @@ input:not(:checked) + .confirm-modal form {
       <th>Date&Time</th>
       <th>Type of Test</th>
       <th>Details</th>
+      <th></th>
+      <th></th>
     </tr>
   </thead>
+{% for appointment in appointments %}
+
  <tbody>
-  {% for appointment in appointments %}
   
-  <tr>
+<tr>
     <td>{{ appointment.patient.firstname }} {{ appointment.patient.lastname }}</td>
     <td>{{ appointment.date_and_time }}</td>
     <td>{{ appointment.exam_type }}</td>
     <td>{{ appointment.details }}</td>
-<td>
-    <label>{{appointment.id}}
-<span ><i class='bx bxs-x-square bx-rotate-90 bx-sm ' style='color:#c30909; cursor: pointer;'></i>
-</span>
-    <input type="checkbox" class="btn-delete"/>
-    <div class="confirm-modal">
-    <form class="form-control" method="POST" action="{% url 'delete-appointment' appointment.id %}">
-      <h3>Confirm delete</h3>
-      <br>
+    <td><a href="#" hx-get="{% url 'update_appointment' appointment.id %}"  hx-target="#updateappointment" hx-swap="afterend" hx-trigger="click" hx-push-url="true" onclick="hideButtonedit()"><i class='bx bxs-edit-alt bx-sm btn-edit' style='color:#112950;'></i></a></td>
+    <td>
+ <label>
+  <span><i class='bx bxs-x-square bx-rotate-90 bx-sm ' style='color:#c30909; cursor: pointer;'></i></span>
+  <input type="checkbox" class="btn-delete" id="btn-delete-app"/>
+  <div class="confirm-modal">
+  <form class="form-control" method="POST" action="{% url 'delete-appointment' appointment.id %}">
+    <h3>Confirm delete</h3>
+    <br>
     <h5 class="text">Are you sure you want to delete {{ appointment.patient.firstname }} {{ appointment.patient.lastname }}'s appointment on {{ appointment.date_and_time }}?</h5>
-    
     {% csrf_token %}
-      <div class="button-container">
+    <div class="button-container">
       <button type="submit" class="btn" style="background-color:#db1c1c;">Delete</button>
       <button type="button" class="btn" style="color:#112950;" onclick="window.location.href='{% url 'rad_appointments' %}'">Cancel</button>
-  </div>
+    </div>
+  </form>
+</div>
 </label>
-</td> 
-<td>
-  <a href="#" hx-get="{% url 'update_appointment' appointment.id %}"  hx-target="#updateappointment" hx-swap="afterend" hx-trigger="click" hx-push-url="true" onclick="hideButtonedit()">
-  <i class='bx bxs-edit-alt bx-sm btn-edit' style='color:#112950;'></i></a></td>
- </tr>
-  {% endfor %}
+
+   </td> 
+</tr>
+
 </tbody>
+  {% endfor %}
 </table>
     </div>
   </div>
@@ -281,6 +284,20 @@ input:not(:checked) + .confirm-modal form {
 
     btnDelete.style.display = 'none';
   }
+  
+  // Get the checkbox input and modal form
+  const checkbox = document.getElementById('btn-delete-app');
+  const modal = document.querySelector('.confirm-modal');
+  
+  // Show/hide modal form on checkbox change
+  checkbox.addEventListener('change', function() {
+    if (checkbox.checked) {
+      modal.style.display = 'block';
+    } else {
+      modal.style.display = 'none';
+    }
+  });
+
 </script>
 
 <!-- MAIN -->
