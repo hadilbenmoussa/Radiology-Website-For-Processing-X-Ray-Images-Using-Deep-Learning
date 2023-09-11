@@ -136,7 +136,7 @@ label[for="{{ form.AI_check.id_for_label }}"] {
 <div class="head">            
 <tr>
    <th>
-<p><strong>Indications:</strong> {{ report.details }}</p>
+<p><strong>Indications:</strong> {{ report.details|safe}}</p>
 </th></tr>
 </div>
 <form id="multistep-form" enctype="multipart/form-data" method="POST" action="{% url 'generate_report' report.id %}">
@@ -215,7 +215,7 @@ label[for="{{ form.AI_check.id_for_label }}"] {
   </div>
   </div>
    
-  <h2>The classification of the scan is "{{prediction.predictedLabel}}" with "{{prediction.percentage}}" % confidence</h2>
+ 
 
 </main>
 <!-- MAIN -->

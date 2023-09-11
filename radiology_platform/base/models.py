@@ -1,43 +1,43 @@
 from django.db import models
 from bs4 import BeautifulSoup
+from ckeditor.fields import RichTextField
 
-# Create your models here.
+from django.core.files.uploadedfile import InMemoryUploadedFile
 
 
 class Post(models.Model):
-    title=models.CharField(max_length=255)
-    # models.CASCADE if we delete a user all the instances of posts created with him will be deleted 
-   
-    body=models.TextField()
-        # when the model is updated
+    title = models.CharField(max_length=255)
+    author = models.CharField(max_length=255, null=True)
+    body = RichTextField(blank=True, null=True)
+    image = models.ImageField(upload_to="blog_images/", null=True)
     updated = models.DateTimeField(auto_now=True)
-    # when the room was created
     created = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        ordering = ['-updated', '-created']
-    def __str__(self):
-        return self.title + '|' + str(self.author)
+        ordering = ["-updated", "-created"]
+
     def get_short_description(self):
         body = self.body.strip()
-    # Use string manipulation to extract the first 50 characters of the body
-        description = body[:50] + '...'
+        description = body[:50] + "..."
         return description
+
     def save(self, *args, **kwargs):
         self.title = self.title.upper()
         super(Post, self).save(*args, **kwargs)
+
+    def update_image(self, image_file):
+        if isinstance(image_file, InMemoryUploadedFile):
+            self.image = image_file
+            self.save()
+
+
 class Subscribers(models.Model):
-    name=models.CharField(max_length=50, null=True)
-    email=models.EmailField(null=True)
-    date= models.DateTimeField(auto_now_add=True)   
+    name = models.CharField(max_length=50, null=True)
+    email = models.EmailField(null=True)
+    date = models.DateTimeField(auto_now_add=True)
+
     def __str__(self):
         return self.email
+
     def __str__(self):
         return self.name
-class MailMessage(models.Model) :
-    title = models.CharField(max_length=100,null=True)  
-    message=models.TextField(null=True)
-    def __str__(self):
-        return self.title
-    def __str__(self):
-        return self.message

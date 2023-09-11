@@ -1,4 +1,4 @@
-<form class="form-group" method="post" hx-post="{% url 'create_patient' %}" onsubmit="window.location.href='{% url 'patients' %}'">
+<form class="form-group" method="post" hx-post="{% url 'create_patient' %}" onsubmit="location.reload()">
   {% csrf_token %} {{ form.as_p }}
   <input type="submit" class="submit" value="Submit"/>
   <input

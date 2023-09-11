@@ -593,12 +593,10 @@ body {
 	margin-bottom: 0;
 }
 
+/* 
 #content main .table-data .blog-form {
-	flex-grow: 1;
-	flex-basis: 300px;
-	max-width: 600px;
-	margin: 0 auto;
-}
+	width: 100%;
+} */
 
 
 

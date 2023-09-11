@@ -1,10 +1,10 @@
-{% extends 'main.html' %}{% block content %}
+{% extends 'main.html' %}{% load static %}{% block content %}
 <section class="blog_section layout_padding">
   <div class="container">
     <div class="heading_container heading_left">
       <div class="title-gap col-md-10 mx-auto px-0">
         <h2>Radio.AI Blog</h2>
-        <span> Looking into the future of healthcare </span>
+        <p> Looking into the future of healthcare </p>
 
         <hr />
         <div class="container">
@@ -34,14 +34,11 @@
         {% for post in blog_posts %}
         <div class="col-lg-4 mb-4">
           <div class="card">
-            <img
-              src="https://images.unsplash.com/photo-1477862096227-3a1bb3b08330?ixlib=rb-1.2.1&auto=format&fit=crop&w=700&q=60"
-              alt=""
-              class="card-img-top"
-            />
+          {% if post.image %}
+  <img src="{{ post.image.url }}" alt="" class="card-img-top" style="width: 300px; height: 200px; object-fit: cover;">          {% endif %}
             <div class="card-body">
               <h5 class="card-title">{{post.title}}</h5>
-              <p class="card-text">{{ post.get_short_description }}</p>
+              <p class="card-text">{{ post.get_short_description|safe }}</p>
               <a href="{% url 'blog_details' post.pk %}" class="btn custom-btn2"
                 >Read More</a
               >
@@ -58,17 +55,17 @@
     <div class="title-gap col-md-10 mx-auto px-0">
       <h2>Our Authors</h2>
       <p>
-        Incilint sapiente illo quo praesentium officiis laudantium nostrum, ad
-        adipisci cupiditate sit, quisquam aliquid. Officiis laudantium fuga ad
-        voluptas aspernatur error fugiat quos facilis saepe quas fugit, beatae
-        id quisquam.
+At Radio.AI Blog, we take pride in featuring articles written by highly skilled professionals in the field of medicine. Our authors, who are primarily doctors and radiologists, bring their extensive knowledge and expertise to provide valuable insights and information to our readers.
+
+
+
       </p>
     </div>
     <div class="row">
       <div class="col-sm-6 col-lg-4 mx-auto">
         <div class="box">
           <div class="img-box">
-            <img src="images/d1.jpg" alt="" />
+         <i class="fa fa-user fa-lg"></i>
           </div>
           <div class="detail-box">
             <div class="social_box">
@@ -85,16 +82,16 @@
                 <i class="fa fa-linkedin" aria-hidden="true"></i>
               </a>
             </div>
-            <h5>Elina Josh</h5>
-            <h6 class="">Doctor</h6>
+            <h5>Meriam Mohamed</h5>
+            <h6 class="">Radiologist</h6>
           </div>
         </div>
       </div>
       <div class="col-sm-6 col-lg-4 mx-auto">
         <div class="box">
           <div class="img-box">
-            <img src="images/d2.jpg" alt="" />
-          </div>
+      <i class="fa fa-user fa-lg"></i>
+              </div>
           <div class="detail-box">
             <div class="social_box">
               <a href="">
@@ -110,36 +107,12 @@
                 <i class="fa fa-linkedin" aria-hidden="true"></i>
               </a>
             </div>
-            <h5>Adam View</h5>
+            <h5>Adem Salah</h5>
             <h6 class="">Doctor</h6>
           </div>
         </div>
       </div>
-      <div class="col-sm-6 col-lg-4 mx-auto">
-        <div class="box">
-          <div class="img-box">
-            <img src="images/d3.jpg" alt="" />
-          </div>
-          <div class="detail-box">
-            <div class="social_box">
-              <a href="">
-                <i class="fa fa-facebook" aria-hidden="true"></i>
-              </a>
-              <a href="">
-                <i class="fa fa-twitter" aria-hidden="true"></i>
-              </a>
-              <a href="">
-                <i class="fa fa-youtube" aria-hidden="true"></i>
-              </a>
-              <a href="">
-                <i class="fa fa-linkedin" aria-hidden="true"></i>
-              </a>
-            </div>
-            <h5>Mia Mike</h5>
-            <h6 class="">Doctor</h6>
-          </div>
-        </div>
-      </div>
+      
     </div>
   </div>
 </section>

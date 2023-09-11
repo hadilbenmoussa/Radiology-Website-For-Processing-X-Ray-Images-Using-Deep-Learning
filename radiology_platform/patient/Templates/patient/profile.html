@@ -1,0 +1,137 @@
+{% extends 'maindoctor.html' %} {% load static %}{% block content %}
+<!-- SIDEBAR -->
+<section id="sidebar">
+  <a href="#" class="brand">
+    <img src="{% static 'images/aiblue.png' %}" alt="icon" class="icon" />
+    <span class="text">Radio.AI</span>
+  </a>
+  <ul class="side-menu top">
+
+    <li>
+      <a href="{% url 'patient_appointments' %}">
+        <i class="bx bxs-group"></i>
+        <span class="text">My Appointments</span>
+      </a>
+    </li>
+    <li>
+      <a href="{% url 'patient_reports' %}">
+        <i class="bx bxs-doughnut-chart"></i>
+        <span class="text">My Reports</span>
+      </a>
+    </li>
+
+
+  </ul>
+  <ul class="side-menu">
+    <li class="active">
+      <a href="{% url 'rad_profil' username=request.user.username %}">
+        <i class="bx bx-user"></i>
+        <span class="text">Profil</span>
+      </a>
+    </li>
+    <li>
+      <a href="#" class="logout">
+        <i class="bx bxs-log-out-circle"></i>
+        <span class="text">Logout</span>
+      </a>
+    </li>
+  </ul>
+</section>
+<!-- SIDEBAR -->
+
+<!-- MAIN -->
+<main>
+  <div class="head-title">
+    <div class="left">
+      <h1>Welcome to Radio.AI</h1>
+      <ul class="breadcrumb">
+        <li>
+          <a href="#">Dashboard</a>
+        </li>
+        <li><i class="bx bx-chevron-right"></i></li>
+        <li>
+          <a class="active" href="#">Home</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="table-data">
+    <div class="profile-form">
+      <h2 class="form-title">Basic Details</h2>
+      <form>
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input type="text" id="name" name="name" value="John Doe" required />
+        </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            value="johndoe@example.com"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label for="phone">Phone</label>
+          <input
+            type="tel"
+            id="phone"
+            name="phone"
+            value="555-555-5555"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label for="age">Age</label>
+          <input type="number" id="age" name="age" value="30" required />
+        </div>
+        <div class="form-group">
+          <label for="gender">Gender</label>
+          <select id="gender" name="gender" required>
+            <option value="">Select Gender</option>
+            <option value="male" selected>Male</option>
+            <option value="female">Female</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="dob">Date of Birth</label>
+          <input type="date" id="dob" name="dob" value="1992-01-01" required />
+        </div>
+        <div class="form-group">
+          <label for="street">Street</label>
+          <input
+            type="text"
+            id="street"
+            name="street"
+            value="123 Main St"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label for="location">Location</label>
+          <input
+            type="text"
+            id="location"
+            name="location"
+            value="Suite 100"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label for="city">City</label>
+          <input type="text" id="city" name="city" value="Anytown" required />
+        </div>
+        <div class="form-buttons">
+          <button type="submit">Save</button>
+          <button type="button">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</main>
+<!-- MAIN -->
+{% endblock content %}

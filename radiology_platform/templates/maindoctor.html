@@ -10,6 +10,8 @@
       href="https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css"
       rel="stylesheet"
     />
+          <link rel="stylesheet" 
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.min.css" integrity="sha256-DOS9W6NR+NFe1fUhEE0PGKY/fubbUCnOfTje2JMDw3Y=" crossorigin="anonymous" />
 
 
@@ -32,18 +34,18 @@
         <i class="bx bx-menu"></i>
 
         <form action="#">
-          <div class="form-input">
-            <input type="search" placeholder="Search..." />
+          <div class="">
+            {% comment %} <input type="search" placeholder="Search..." /> {% endcomment %}
             <button type="submit" class="search-btn">
-              <i class="bx bx-search"></i>
+              {% comment %} <i class="bx bx-search"></i> {% endcomment %}
             </button>
           </div>
         </form>
         <input type="checkbox" id="switch-mode" hidden />
         <label for="switch-mode" class="switch-mode"></label>
         <a href="#" class="notification">
-          <i class="bx bxs-bell"></i>
-          <span class="num">8</span>
+          {% comment %} <i class="bx bxs-bell"></i>
+          <span class="num">8</span> {% endcomment %}
         </a>
         <a href="{% url 'profil' username=request.user.username %}" class="profile">
           <img src="{% static 'images/people.png' %}" />

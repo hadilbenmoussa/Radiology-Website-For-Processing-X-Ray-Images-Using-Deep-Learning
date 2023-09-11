@@ -1,10 +1,10 @@
 
   <div class="container mt-5">
     <h2>Report Details</h2>
-    <table class="table mt-5">
+    <table class="table mt-2">
       <tbody>
         <tr>
-          <th>Report:</th>
+          <th>Report ID:</th>
           <td>{{ report.id }}</td>
         </tr>
         <tr>
@@ -26,7 +26,7 @@
         <tr>
           <th>Report File:</th>
           <td>{% if report.report_file %}
-                <a href="{{ report.report_file.url }}" download>Download</a>
+                <a href="{{ report.report_file.url }}" download style="color:#1fab89;" ><i class='bx bx-download'></i>Download</a>
             {% endif %}</td>
         </tr>
         <tr>
@@ -43,23 +43,24 @@
         </tr>
         <tr>
           <th>Details:</th>
-          <td>{{ report.details }}</td>
+          <td>{{ report.details|safe }}</td>
         </tr>
       </tbody>
     </table>
     <div class="row">
       <div class="col-sm-6">
          {% if report.report_file %}
-        <a href=# class="btn btn-primary">Review Report</a>
+        
         <form method="post" enctype="multipart/form-data">
            {% csrf_token %}
+           {{ form.media }}
         <input type="file" name="file">
-        <button type="submit">Upload</button>
+        <button type="submit">Upload Review</button>
          </form>
          {% endif %}
       </div>
       <div class="col-sm-6 text-right">
-        <a href="{% url 'reports' %}" class="btn btn-secondary">Back to Reports</a>
+        <a href="{% url 'reports' %}" class="btn btn-secondary" style="color:#ce2823;">Back to Reports</a>
       </div>
     </div>
   </div>

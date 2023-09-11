@@ -12,6 +12,7 @@ body {
     height: 0;
 }
 
+
 .form_wrapper {
     background: #fff;
     width: 400px;
@@ -72,6 +73,7 @@ body {
 }
 
 .form_wrapper .input_field>span {
+
     position: absolute;
     left: 0;
     top: 0;
@@ -325,6 +327,7 @@ body {
 .credit a {
     color: #178066;
 }
+
 
 @-webkit-keyframes check {
     0% {

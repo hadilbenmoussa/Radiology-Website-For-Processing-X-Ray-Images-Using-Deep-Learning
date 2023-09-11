@@ -148,13 +148,13 @@ input:not(:checked) + .confirm-modal form {
         <span class="text">Reports</span>
       </a>
     </li>
-    <li>
+    {% comment %} <li>
       <a href="{% url 'rad_notifications' %}">
         <i class="bx bxs-bell"></i>
 
         <span class="text">Notifications</span>
       </a>
-    </li>
+    </li> {% endcomment %}
     <li>
       <a href="{% url 'addblog' %}">
         <i class="bx bx-news"></i>
@@ -237,7 +237,7 @@ input:not(:checked) + .confirm-modal form {
     <td>{{ appointment.patient.firstname }} {{ appointment.patient.lastname }}</td>
     <td>{{ appointment.date_and_time }}</td>
     <td>{{ appointment.exam_type }}</td>
-    <td>{{ appointment.details }}</td>
+    <td>{{ appointment.details|safe }}</td>
     <td><a href="#" hx-get="{% url 'update_appointment' appointment.id %}"  hx-target="#updateappointment" hx-swap="afterend" hx-trigger="click" hx-push-url="true" onclick="hideButtonedit()"><i class='bx bxs-edit-alt bx-sm btn-edit' style='color:#112950;'></i></a></td>
     <td>
  <label>

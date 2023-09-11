@@ -1,6 +1,6 @@
-<form class="form-group" method="post" hx-post="{% url 'create_appointment' report.id %}" onsubmit="window.location.href='{% url 'rad_reports' %}'">
-  {% csrf_token %} {{ form.as_p }}
-  {{report.id}}
+<form class="form-group" method="post" hx-post="{% url 'create_appointment' report.id %}" onsubmit="location.reload()">
+  {% csrf_token %}{{ form.media }} {{ form.as_p }}
+
     {% if form.errors %}
     <div class="alert alert-danger">
       {% for field, errors in form.errors.items %}
